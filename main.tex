@@ -1,0 +1,104 @@
+\documentclass[a4paper,11.5pt,]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage[english,]{babel}
+\usepackage{blindtext}
+\usepackage{natbib}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{physics}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{wrapfig}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\usepackage{multicol}
+%\setlength{\columnsep}{1cm}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ textheight =  592mm,
+ left=20mm,
+ right=20mm,
+ tmargin=20mm,
+ bmargin=20mm
+ }
+ \setlength{\columnsep}{20pt}
+          
+
+ \title{Stellar Spectra A. Basic Line Formation\\
+ AST4310 - Radiative Processes in Astrophysics}
+ \date{\normalsize{14. September 2018} }
+ \author{\textsc{\small{Metin San}}}
+ 
+ 
+\begin{document}
+
+\maketitle
+\begin{center}
+\textsc{Introduction}
+\end{center}
+
+
+\begin{adjustwidth}{1cm}{1cm}
+
+Spectral lines in stellar spectra make out the foundation of astrophysics. They provide a wealth of knowledge about the studied object and are therefore one of the most valuable sources of information to an astrophysicist. In order to get an understanding of spectral lines we will follow the work of Cecilia Payne and Marcel Minnaert which are some of the early pioneers of spectral astronomy. The report is split into two parts. The first part considers Saha-Boltzmann modeling with Cecilia Payne, while the second part deals with Fraunhofer lines and their strenghts with Marcel Minnaert.
+\end{adjustwidth}
+\begin{multicols}{2}
+
+\begin{center}
+\textsc{1. The Boltzmann and Saha laws}
+\end{center}
+Cecilia Payne (1900 - 1979) was a British-American astronomer and astrophysicist famous for showing that most stars are made of mainly hydrogen and helium. She applied the Saha distribution which was newly derived to stellar spectra. With this she was able to show that the empirical Harvard classification primarily represented a temperature scale.
+
+In thermodynamical equilibrium, the equipartition laws Saha and Boltzmann describe the division of particles of a specific element. With the temperature as the only major parameter these laws show us how the different ionization stages and discrete energy levels of a specific element are distributed.
+
+\begin{center}
+1.1 \textit{Boltzmann distribution}
+\end{center}
+The Boltzmann distribution deals with the energy levels and is given by
+\begin{equation}\label{eq:1}
+    \frac{n_{r,s}}{N_r} = \frac{g_{r,s}}{U_r} e^{-\chi_{r,s}/kT},
+\end{equation}
+where $n_{r,s}$ is the number density (also called level population) and $g_{r,s}$ the statistical weight of the level $(r,s)$ where $r$ is the ionization stage, and $s$ is the state or level. $N_r = \sum_3 n_{r,s}$ is the total particle density over all levels of ionization. $\chi_{r,t}$ is the excitation energy measured from the ground state ($r,s=1$). The partition function $U_r$ is defined by
+
+\begin{equation}\label{eq:2}
+    U_r = \sum_s g_{r,s} e^{-\chi_{r,s}/kT}.
+\end{equation}
+
+\begin{center}
+1.2 \textit{Strength ratio of $\alpha$ lines in hydrogen}
+\end{center}
+Payne was studying the absorption lines in stellar spectra when she made the assumption that the strength of the absorption lines scaled with the population density of the lower level of the corresponding transition. If one assumes that most of the hydrogen resides in the lower energy levels, it follows that most transitions would result in higher energy levels. The strength of the lines should therefore scale with the population density of these lower levels. We know today that this is assumption is completely correct, but stellar absorption lines do generally scale with larger lower-level populations. We will therefore proceed by assuming that Payne's assumption holds and that the scaling is linear.
+
+This assumption allows us to estimate the strength ratios of the $\alpha$ lines of hydrogen, where $\alpha$ denotes that the excitation is from $s$ to $s+1$.  For a neutral hydrogen atom ($r = 1$), the statistical weight goes as $g_{1,s} = 2s^2$, and the excitation energy goes as $\chi_{1,s} = 13.6 (1- 1/s^2)$. The ratio between Lyman $\alpha$ ($s=1$) and Balmer $\alpha$ ($s=2$) is then given from the Boltzmann equation \eqref{eq:1} as
+
+\begin{equation}
+    \frac{n_{1,1}}{n_{1,2}} = \frac{g_{1,1}e^{-\chi_{1,1}/kT}}{g_{1,2} e^{-\chi_{1,2}/kT}},
+\end{equation}
+where the $U_r$ and $N_r$ cancels out leaving us with a simple expression.
+
+\begin{center}
+1.2\textit{ Saha distribution}
+\end{center}
+The Saha distribution relates the ionization levels of an element and is given by
+
+\begin{equation}\label{eq:3}
+    \frac{N_{r+1}}{N_r} = \frac{1}{N_e} \frac{2U_{r+1}}{U_r} \left( \frac{2\pi m_e k T}{h^2} \right)^{3/2} e^{-\chi_r /kT},
+\end{equation}
+where $m_e$ is the electron mass, $h$ is Planck's constant and $\chi_r$ is the threshold ionization energy required to ionize from stage $r$ to $r+1$.
+
+\end{multicols}
+\end{document}
