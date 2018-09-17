@@ -130,7 +130,7 @@ We will now consider the imaginary element E, or "Schadeenium". E is a simple at
     \item The excitation energies increase incrementally by 1 eV: $\chi_{r,s} = s-1$ eV.
 \end{itemize}
 
-We begin by computing the partition function $U_r$ of E found in equation \eqref{eq:2}. The results is seen in figure \ref{fig:1}.
+\noindent We begin by computing the partition function $U_r$ of E found in equation \eqref{eq:2}. The results is seen in figure \ref{fig:1}.
 
 \begin{figure}[H]
 	\centering
@@ -139,8 +139,11 @@ We begin by computing the partition function $U_r$ of E found in equation \eqref
 	\label{fig:1}
 \end{figure}
 
-\noindent We note that partition function of element E is of order unity and appears to be weakly sensitive to temperature.
+\noindent We find that all ionizations mostly behave the same way for temperatures below 15000 K. For higher temperatures, $U_1$ splits from the other ionizations and keeps a lower value. Generally we note that the partition function of element E is of order unity and appears to be weakly sensitive to temperature.
 
+\begin{center}
+1.4.1 \textit{ Boltzmann distribution for E}
+\end{center}
 With the partition function calculated, we can study the Boltzmann distribution for E. This is done by computing the boltzmann equation \eqref{eq:1} for varies levels $s$. The result can be seen in figure \ref{fig:2}.
 
 \begin{figure}[H]
@@ -150,7 +153,21 @@ With the partition function calculated, we can study the Boltzmann distribution 
 	\label{fig:2}
 \end{figure}
 
-We see that in thermal equilibrium for all temperatures, the ground state always has the largest population.
+\noindent By studying figure \ref{fig:2} we notice that in thermal equilibrium, for all temperatures, the ground state always has the largest population. At $T = 5000$ K we have $n_{r,s}/N_r = 0.9$ for $s = 1$ and $n_{r,s}/N_r \approx 0.009$ for $s=2$ and so on for the lower levels. We see that all these add up to unity for all temperatures, which is a results off the scaling by $N_r$. We can conclude that the lowest levels are the most important ones which is a result of the rapid decay of the Boltzmann factor $e^{-\chi_{r,s}/kT}$. This can also explain the insensitivity of $U_r$ to temperature. 
+
+\begin{center}
+14.2\textit{ Saha distribution for E}
+\end{center}
+
+We will now study the Saha distribution of the element E. By computing the saha equation \eqref{eq:4} for varying ionizations we obtain the results seen in figure \ref{fig:3}. Since this is a normalized distribution in the same way as the Boltzmann distribution, the ionizations always add up to one. We also notice that for 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/saha_E.pdf}
+	\caption{Saha distribution of the imaginary element E with an electron pressure of $P = 1000$ dyn cm$^{-2}$ .}
+	\label{fig:3}
+\end{figure}
+
 
 \end{multicols}
 \end{document}
