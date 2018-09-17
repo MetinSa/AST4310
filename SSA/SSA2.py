@@ -59,7 +59,6 @@ def saha_E(T, e_Press, ionstage):
 
 	ntotal = np.sum(nstage)
 	nstagerel = (nstage/ntotal)
-
 	return nstagerel[ionstage-1]
 
 
@@ -117,8 +116,6 @@ def sahabolt_H(T, e_Press, level):
 
 
 
-
-
 #plots
 
 def part_func_plot():
@@ -139,10 +136,14 @@ def part_func_plot():
 	plt.xlabel("Temperature [K]")
 	plt.ylabel("$U_r$")
 	plt.legend()
-	plt.savefig("part_E.pdf")
-	plt.show()
+	# plt.savefig("part_E.pdf")
+	# plt.show()
 
-# part_func_plot()
+	print(partfunc_E(5000))
+	print(partfunc_E(10000))
+	print(partfunc_E(20000))
+
+part_func_plot()
 
 
 def boltz_e_plot():
@@ -172,8 +173,53 @@ def boltz_e_plot():
 	plt.show()
 
 
-boltz_e_plot()
+# boltz_e_plot()
 
+
+def saha_E_plot():
+
+	temp = np.linspace(1,30000,1000)
+	rmax = 5
+	saha1 = np.zeros((rmax,1000))
+	saha2 = np.zeros((rmax,1000))
+	lab = ["E I: $(r = 1)$", "E II: $(r = 2)$", "E III: $(r = 3)$", "E IV: $(r = 4)$", "E V: $(r = 5)$"]
+
+
+
+	for r in range(0,rmax):
+		for i in range(len(temp)):
+			saha1[r,i] = saha_E(temp[i],1000,(r+1))
+			saha2[r,i] = saha_E(temp[i],10,(r+1))
+
+	# print(boltz)
+
+	plt.subplot(2,1,1)
+	# ground-state plot
+	for i in range(0,rmax):
+		plt.plot(temp,saha1[i,:],label = lab[i])
+
+	plt.title("Saha distribution of element E")
+	plt.grid(linestyle = "--")
+	plt.text(-1200, 0.45, '$P_e = 1000$', fontsize=12)
+	plt.legend(loc = "left")
+	plt.ylabel('$N_{r+1}/N_r$')
+
+
+	plt.subplot(2,1,2)
+	# ground-state plot
+	for i in range(0,rmax):
+		plt.plot(temp,saha2[i,:],label = lab[i])
+
+
+	plt.grid(linestyle = "--")
+	plt.xlabel('Temperature [k]')
+	plt.ylabel('$N_{r+1}/N_r$')
+	plt.text(-1200, 0.45, '$P_e = 10$', fontsize=12)
+	# plt.ylim([1e-5, 2])
+	# plt.savefig("saha_sub.pdf")
+	plt.show()
+
+# saha_E_plot()
 
 
 

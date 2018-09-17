@@ -19,6 +19,6 @@ for i in range(3):
 
 	ratio[i] = (g[i] * np.exp(-chi[i]/(k_eV*T)))/(g[i+1] * np.exp(-chi[i+1]/(k_eV*T)))
 
-# print(ratio)
+print(ratio)
 
-print((g[1] * np.exp(-chi[1]/(k_eV*T)))/(g[3] * np.exp(-chi[3]/(k_eV*T))))
+# print((g[0] * np.exp(-chi[0]/(k_eV*T)))/(g[3] * np.exp(-chi[3]/(k_eV*T))))
