@@ -139,7 +139,9 @@ We will now consider the imaginary element E, or "Schadeenium". E is a simple at
 	\label{fig:1}
 \end{figure}
 
-\noindent We find that all ionizations mostly behave the same way for temperatures below 15000 K. For higher temperatures, $U_1$ splits from the other ionizations and keeps a lower value. Generally we note that the partition function of element E is of order unity and appears to be weakly sensitive to temperature.
+\noindent We find that all ionizations mostly behave the same way for temperatures below 15000 K. For higher temperatures, $U_1$ splits from the other ionizations and keeps a lower value. Generally we note that the partition function of element E is of order unity and appears to be weakly sensitive to temperature. 
+
+Further we can compare our calculation with Schadee's first table. We find that for $T=5000$ K all ionizations have the value $U_r = 1.109$, which corresponds well to Schadee's $U_r = 1.11$. For $T = 10000$ K we find that again all ionizations have more or less the same value of $U_r = 1.456$, which can be rounded up to Schadee's $U_r = 1.46$. Finally for $T = 20000$ K we find that $U_1 = 2.232$ and $U_2 = U_3 = U_4 = 2.271$, where as Schadee tabulated $U_1 = 2.27$, and $U_2 = U_3 = U_4 = 2.27$. We see that these values correspond nearly perfectly to those tabulated by Schadee.
 
 \begin{center}
 1.4.1 \textit{ Boltzmann distribution for E}
@@ -153,13 +155,13 @@ With the partition function calculated, we can study the Boltzmann distribution 
 	\label{fig:2}
 \end{figure}
 
-\noindent By studying figure \ref{fig:2} we notice that in thermal equilibrium, for all temperatures, the ground state always has the largest population. At $T = 5000$ K we have $n_{r,s}/N_r = 0.9$ for $s = 1$ and $n_{r,s}/N_r \approx 0.009$ for $s=2$ and so on for the lower levels. We see that all these add up to unity for all temperatures, which is a results off the scaling by $N_r$. We can conclude that the lowest levels are the most important ones which is a result of the rapid decay of the Boltzmann factor $e^{-\chi_{r,s}/kT}$. This can also explain the insensitivity of $U_r$ to temperature. 
+\noindent By studying figure \ref{fig:2} we notice that in thermal equilibrium, for all temperatures, the ground state always has the largest population. At $T = 5000$ K we have $n_{r,s}/N_r = 0.9$ for $s = 1$ and $n_{r,s}/N_r \approx 0.009$ for $s=2$ and so on for the lower levels which perfectly corresponds to those tabulated by Schadee. We see that all these add up to unity for all temperatures, which is a results off the scaling by $N_r$. We can conclude that the lowest levels are the most important ones which is a result of the rapid decay of the Boltzmann factor $e^{-\chi_{r,s}/kT}$. This can also explain the insensitivity of $U_r$ to temperature. 
 
 \begin{center}
 14.2\textit{ Saha distribution for E}
 \end{center}
+We will now study the Saha distribution of the element E. By computing the saha equation \eqref{eq:4} for varying ionizations we obtain the results seen in figure \ref{fig:3}. Since this is a normalized distribution in the same way as the Boltzmann distribution, the ionizations always add up to one. We also notice that for solar temperatures, only 2 ionizations are significantly present. At $T = 5000$ we see that $N_{r+1}/N_r \approx 0.91$ for $r = 1$, while  $N_{r+1}/N_r \approx 0.089$ for $r = 2$, while the higher ionization stages are negligible. This means that for solar temperatures, E is mostly neutral. For higher temperatures around $T = 10000$ K, we find that $N_{r+1}/N_r \approx 0.95$ for $r = 2$ and $N_{r+1}/N_r \approx 0.05$ for $r = 3$, while the other ionizations are again negligible. These values correspond nicely to those found by in Schadee's table. This suggests that there are at all times mainly 2 ionizations stages present in a gas at a given temperature.
 
-We will now study the Saha distribution of the element E. By computing the saha equation \eqref{eq:4} for varying ionizations we obtain the results seen in figure \ref{fig:3}. Since this is a normalized distribution in the same way as the Boltzmann distribution, the ionizations always add up to one. We also notice that for 
 
 \begin{figure}[H]
 	\centering
@@ -167,6 +169,24 @@ We will now study the Saha distribution of the element E. By computing the saha 
 	\caption{Saha distribution of the imaginary element E with an electron pressure of $P = 1000$ dyn cm$^{-2}$ .}
 	\label{fig:3}
 \end{figure}
+
+We can also study what effects the electron pressure has on the saha distribution. We do so by computing the saha equation \eqref{eq:4} for two values of $P_e$. The results of this can be seen in figure figure \ref{fig:4}.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/saha_sub.pdf}
+	\caption{Saha distribution of the imaginary element E for two different electron pressures. Upper plot: $P_e = 1000$. Lower plot: $P_e = 10$, where $P_e$ has units [dyn cm$^{-2}$].}
+	\label{fig:4}
+\end{figure}
+
+Figure \ref{fig:4} shows the difference $P_e$ makes when computing the Saha distribution. We note that in the lower subplot with $P_e = 10$ the distribution seems to have been squished towards the left. This means that ionization occurs at earlier temperatures for low values of electron pressure.
+
+We note that the Boltzmann and Saha distributions behave differently for increasing temperatures. The Boltzmann equation converges to to $g_{r,s}/U_r$ as $T \rightarrow \infty$. The same is not true for the Saha distribution. The two distributions share the term $e^{-\chi /kT}$ term which converges to 1 as $T \rightarrow $. However, the Saha distribution has a factor $T^{3/2}$ which grows exponentially as $T$ increases. This is the factor that separates the two distributions.
+The scaling with 1/Ne says that ionization is easier if there is room for the
+resulting free electron or, reversedly, that recombination from stage r + 1 to stage r requires
+catching a free electron.
+
 
 
 \end{multicols}
