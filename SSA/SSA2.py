@@ -123,19 +123,58 @@ def sahabolt_H(T, e_Press, level):
 
 def part_func_plot():
 
-	temp = np.arange(0,30001,1000)
+	temp = np.arange(1,30001,1000)
 	U = np.zeros((4,len(temp)))
 	for i in range(len(temp)):
 		# print(temp[i])
 		U[:,i] = partfunc_E(temp[i])
 
-	plt.plot(temp,U[0,:])
-	plt.plot(temp,U[1,:])
-	plt.plot(temp,U[2,:])
-	plt.plot(temp,U[3,:])
+
+	plt.plot(temp,U[0,:], label = "E I: $(r = 1)$")
+	plt.plot(temp,U[1,:], label = "E II: $(r = 2)$")
+	plt.plot(temp,U[2,:], label = "E III: $(r = 3)$")
+	plt.plot(temp,U[3,:], label = "E IV: $(r = 4)$")
+	plt.grid(linestyle = "--")
+	plt.title("Partition function $U_r$ for Schadeenium E")
+	plt.xlabel("Temperature [K]")
+	plt.ylabel("$U_r$")
+	plt.legend()
+	plt.savefig("part_E.pdf")
 	plt.show()
 
 # part_func_plot()
+
+
+def boltz_e_plot():
+
+	temp = np.linspace(1,30000,100)
+	smax = 6
+	boltz = np.zeros((smax,100))
+	lab = ["s = 1", "s = 2", "s = 3", "s = 4", "s = 5", "s = 6"]
+
+	for s in range(0,smax):
+		for i in range(len(temp)):
+			boltz[s,i] = boltz_E(temp[i],1,(s+1))
+
+	# print(boltz)
+
+	# ground-state plot
+	for i in range(0,smax):
+		plt.semilogy(temp,boltz[i,:],label = lab[i])
+
+	plt.title("Boltzmann distribution of Schadeenium E")
+	plt.grid(linestyle = "--")
+	plt.xlabel('Temperature [k]')
+	plt.ylabel('$n_{r,s}/N_r$')
+	plt.ylim([1e-5, 2])
+	plt.legend()
+	plt.savefig("boltz_E.pdf")
+	plt.show()
+
+
+boltz_e_plot()
+
+
 
 
 def payne_curves_E():
