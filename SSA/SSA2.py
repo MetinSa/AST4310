@@ -1,16 +1,19 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 import astropy.constants as cc
+from cycler import cycler
 
 #defining constants and arrays
-chi_ion = np.array([7, 16, 31, 51]) 		#schadee ionization energies into numpy array
-chi_H = np.array([6, 12, 51, 67]) 			#Hydrogen ionization
+# chi_ion = np.array([7, 16, 31, 51]) 		#schadee ionization energies into numpy array
+chi_ion = np.array([6, 12, 51, 67]) 			#Hydrogen ionization
 k_eV = 8.61734e-5 							#boltzmann constant/eV
 k_erg = 1.380658e-16						#boltzmann*erg
 m_e = 9.10939e-28							#electron mass
 h = 6.62607e-27								#plancks constant in erg
 
 
+default_cycler = (cycler(color=['royalblue', 'crimson', 'mediumseagreen', 'darkorange', "darkorchid", "sienna"]))
+plt.rc('axes', prop_cycle=default_cycler)
 
 def partfunc_E(T):
 
@@ -88,6 +91,7 @@ def sahabolt_H(T, e_Press, level):
 	for s in range(nrlevels):
 		g[0,s] = 2*(s+1)**2
 		chi[0,s] = 13.598*(1- (1/(s+1)**2))	
+
 	g[1,0] = 1.
 	chi[1,0] = 0. 
 
@@ -107,12 +111,7 @@ def sahabolt_H(T, e_Press, level):
 	# Boltzmann
 	nlevel = (nstage[0]*g[0,level-1]/u[0])*np.exp(-chi[0,level-1]/(k_eV*T))
 	nlevelrel = nlevel/ntotal
-
 	return nlevelrel
-
-
-
-
 
 
 
@@ -137,13 +136,13 @@ def part_func_plot():
 	plt.ylabel("$U_r$")
 	plt.legend()
 	# plt.savefig("part_E.pdf")
-	# plt.show()
+	plt.show()
 
-	print(partfunc_E(5000))
-	print(partfunc_E(10000))
-	print(partfunc_E(20000))
+	# print(partfunc_E(5000))
+	# print(partfunc_E(10000))
+	# print(partfunc_E(20000))
 
-part_func_plot()
+# part_func_plot()
 
 
 def boltz_e_plot():
@@ -169,14 +168,40 @@ def boltz_e_plot():
 	plt.ylabel('$n_{r,s}/N_r$')
 	plt.ylim([1e-5, 2])
 	plt.legend()
-	plt.savefig("boltz_E.pdf")
+	# plt.savefig("boltz_E.pdf")
 	plt.show()
 
 
 # boltz_e_plot()
 
-
 def saha_E_plot():
+
+	temp = np.linspace(1,30000,1000)
+	rmax = 5
+	saha = np.zeros((rmax,1000))
+	lab = ["E I: $(r = 1)$", "E II: $(r = 2)$", "E III: $(r = 3)$", "E IV: $(r = 4)$", "E V: $(r = 5)$"]
+
+
+
+	for r in range(0,rmax):
+		for i in range(len(temp)):
+			saha[r,i] = saha_E(temp[i],1000,(r+1))
+
+	for i in range(0,rmax):
+		plt.plot(temp,saha[i,:],label = lab[i])
+
+	plt.title("Saha distribution of element E, $P_e = 1000$ dyn cm$^{-2}$")
+	plt.grid(linestyle = "--")
+	plt.legend(loc = "left")
+	plt.xlabel('Temperature [k]')
+	plt.ylabel('$N_{r+1}/N_r$')
+	# plt.savefig("saha_E.pdf")
+	plt.show()
+
+# saha_E_plot()
+
+
+def saha_E_plot_comp():
 
 	temp = np.linspace(1,30000,1000)
 	rmax = 5
@@ -219,7 +244,7 @@ def saha_E_plot():
 	# plt.savefig("saha_sub.pdf")
 	plt.show()
 
-# saha_E_plot()
+# saha_E_plot_comp()
 
 
 
@@ -231,49 +256,124 @@ def payne_curves_E():
 	for T in np.arange(1,31):
 		for r in np.arange(1,5):
 			pop[r,T] = sahabolt_E(temp[T],131.,r,1)
-			labellst = ['ground stage', 'first ion stage', 'second ion stage', 'third ion stage']
+			labellst = ['E I: (r=1)', 'E II: (r=2)', 'E III: (r=3)', 'E IV: (r=4)']
 
 	# ground-state plot
 	for i in range(1,5):
 		plt.plot(temp,pop[i,:], label=labellst[i-1])
 
-	plt.xlabel('temperature', size=14)
-	plt.ylabel('population', size=14)
+	plt.title("Grund state populations of element E, $P_e = 131$ dyn cm$^{-2}$")
+	plt.xlabel('Temperature [k]', size=14)
+	plt.ylabel('Population', size=14)
 	plt.yscale('log')
 	plt.ylim([1e-3, 1.1])
-	plt.legend()
+	plt.grid(linestyle = "--")
+	plt.legend(loc = "right")
+	# plt.savefig("payne_E.pdf")
 	plt.show()
+
 
 # payne_curves_E()
 
+def payne_curves_E_multi():
+
+	temp = np.linspace(1,30000,200)
+	pop = np.zeros((4,4,200))
+
+	for T in np.arange(1,200):
+		for r in range(4):
+			for s in range(4):
+				pop[r,s,T] = sahabolt_E(temp[T],131.,r+1,s+1)
+
+	col = ['royalblue', 'crimson', 'mediumseagreen', 'darkorange']
+	labellst = ['S = 1', 'S = 2', 'S = 3', 'S = 4']
+	# # ground-state plot
+	for i in range(4):
+		for k in range(4):
+			if i == 0:
+				plt.plot(temp,pop[i,k,:], color = col[k], label= labellst[k])
+
+			else:
+				plt.plot(temp,pop[i,k,:], color = col[k])
+
+	plt.title("Element E: Ionization stages r and excitation states s")
+	plt.xlabel('Temperature [k]', size=14)
+	plt.ylabel('Population', size=14)
+	plt.yscale('log')
+	plt.ylim([1e-4, 3])
+	plt.grid(linestyle = "--")
+	plt.legend(loc = "bottom right")
+	plt.text(350, 1.2, 'E I: r=1', fontsize=12)
+	plt.text(5350, 1.2, 'E II: r=2', fontsize=12)
+	plt.text(12350, 1.2, 'E III: r=3', fontsize=12)
+	plt.text(21350, 1.2, 'E IV: r=4', fontsize=12)
+	# plt.savefig("payne_E_multi.pdf")
+	plt.show()
+
+# payne_curves_E_multi()
+
+
+def sahabolt_H_plot():
+
+	T = np.arange(1,20000,100)
+
+	pop_H = np.zeros((4,len(T)))
+	pop_Ca = np.zeros(len(T))
+	for i in range(len(T)):
+		for s in range(4):
+			pop_H[s,i] = sahabolt_H(T[i],131.,s+1)
+		pop_Ca[i] = sahabolt_E(T[i],1e2,2,1)
+
+	labellst = ['H I, (s=1)', 'H I, (s=2)', 'H I, (s=3)', 'H I, (s=4)']
+
+	# ground-state plot
+	for i in range(4):
+		plt.plot(T,pop_H[i,:],label = labellst[i] )
+	plt.plot(T,pop_Ca,label = "Ca II, (s=1)", linestyle="--" , color = "gray")
+	plt.title("Saha-Boltzmann distribution for H I and Ca$^+$ K")
+	plt.xlabel('Temperature [k]')
+	plt.ylabel('Population')
+	plt.yscale('log')
+	plt.ylim([1e-10, 2])
+	plt.grid(linestyle = "--")
+	plt.legend()
+	# plt.savefig("sahabolt_HCA.pdf")
+	plt.show()
+
+
+# sahabolt_H_plot()
+
 def plot_line_strength():
 
-	T = np.arange(1000,20001,100)
+	# T = np.arange(1000,20001,100)
+	T = np.linspace(1000,20000,1000)
 	CaH = np.zeros(T.shape)
 	Caabund = 2e-6
-	for i in range(0,191):
+	for i in range(0,len(T)):
 		NCa = sahabolt_E(T[i],1e2,2,1) # is equal to sahabolt_Ca
 		NH = sahabolt_H(T[i],1e2,2)
 		CaH[i] = (NCa*Caabund)/NH	
 
-	plt.plot(T,CaH, label=r'strength ratio Ca$^+$K / H$\alpha$')
+	plt.plot(T,CaH, label=r'Ca$^+$K / H$\alpha$')
+	plt.title(r"Strength ratio between Ca$^+$K and H$\alpha$")
 	plt.yscale('log')
-	plt.xlabel(r'Temperature $T / K$')
+	plt.grid(linestyle = "--")
+	plt.xlabel(r'Temperature [K]')
 	plt.ylabel(r'Ca II K / H$\alpha$',)
 	plt.legend()
+	# plt.savefig("strengthratio.pdf")
 	plt.show()
-	print ('Ca/H ratio at 5000 K = ', CaH[np.argwhere(T==5000)][0][0])
 
 # plot_line_strength()
 
 
 def plot_T_sens():
 
-	T = np.arange(2000,12001,100)
+	T = np.linspace(2000,12000,101)
 	dNCadT = np.zeros(T.shape)
 	dNHdT = np.zeros(T.shape)
 	dT = 1.
-	for i in range(101):
+	for i in range(len(T)):
 		NCa = sahabolt_E(T[i],1e2,2,1)
 		NCa2 = sahabolt_E(T[i]-dT,1e2,2,1)
 		dNCadT[i] = (NCa - NCa2)/(dT*NCa)
@@ -282,19 +382,29 @@ def plot_T_sens():
 		dNHdT[i] = (NH-NH2)/(dT*NH)
 	NCa = np.zeros(T.shape)
 	NH = np.zeros(T.shape)
-	for i in range(101):
+	for i in range(len(T)):
 		NCa[i] = sahabolt_E(T[i],1e2,2,1)
 		NH[i] = sahabolt_H(T[i],1e2,2)
-	plt.figure()
-	plt.plot(T,np.absolute(dNHdT), label=r'H')
-	plt.plot(T,np.absolute(dNCadT), label=r'Ca$^+$K')
-	plt.plot(T,NH/np.amax(NH), ls='--',  label = 'rel. pop. H')
-	plt.plot(T,NCa/np.amax(NCa), ls='--', label = r'rel. pop. Ca$^+$')
-	plt.yscale('log')
-	plt.ylim(1e-9,1)
-	plt.xlabel(r'temperature $T/K$')
+
+
+	plt.subplot(2,1,1)
+	plt.title(r"Temperature sensitivity, Ca II vs H $\alpha$")
+	plt.plot(T,np.absolute(dNHdT), label=r'H $\alpha$, (s=2)')
+	plt.plot(T,np.absolute(dNCadT), label=r'Ca II K, (s=1)')
+	plt.ylim(1e-7,1)
+	plt.grid(ls ="--")
 	plt.ylabel(r"$\left| \left( \Delta n(r,s) / \Delta T \right) /  n(r,s) \right|$")
+	plt.legend(loc = "lower left")
+	plt.yscale('log')
+
+	plt.subplot(2,1,2)
+	plt.plot(T,NH/np.amax(NH),  label = r'H $\alpha$')
+	plt.plot(T,NCa/np.amax(NCa), label = 'Ca II K')
+	plt.grid(ls ="--")	
+	plt.xlabel('Temperature [K]')
+	plt.ylabel("Population")
 	plt.legend()
+	# plt.savefig("tempsens.pdf")
 	plt.show()	
 	
 	
@@ -302,17 +412,20 @@ def plot_T_sens():
 
 
 def plot_hot_cool():
+	T = np.linspace(1,2e4,1000)
 
-	for T in np.arange(2e3,2e4+1,2e3):
-		print (T, sahabolt_H(T,1e2,1))
-	temp = np.arange(1e3,2e4+1,1e2)
-	nH = np.zeros(temp.shape)
-	for i in range(191):
-		nH[i] = sahabolt_H(temp[i],1e2,1)
-	plt.plot(temp,nH)
-	plt.xlabel('temperature $T/K$')
-	plt.ylabel('neutral hydrogen fraction')
+	nH = np.zeros(T.shape)
+	for i in range(len(T)):
+		nH[i] = sahabolt_H(T[i],1e2,1)
+
+	it = np.where(nH < 0.5 )[0][0]
+	plt.plot(T[it],nH[it],"o")
+
+	plt.plot(T,nH)
+	plt.xlabel('Temperature [K]')
+	plt.ylabel('Neutral hydrogen fraction')
+	plt.grid(ls = "--")
 	plt.show()
 
-# plot_hot_cool()
+plot_hot_cool()
 
