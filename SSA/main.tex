@@ -230,7 +230,7 @@ We will now extend our Saha-Boltzmann analysis to neutral hydrogen H I. Hydrogen
     \item Single ion stage $U_2 = g_{2,1} = 1$
 \end{itemize}
 
-\noindent In addition to hydrogen, we will also study the calcium line Ca$^+$ K. The Ca$^+$ K line behaves in the same way as element E for $r=2$ and $s=1$ which makes for an easy calculation as we already have the Saha-Boltzmann routine for E.
+\noindent In addition to hydrogen, we will also study the calcium line Ca$^+$ K. The Ca$^+$ K line behaves in the same way as element E for $r=2$ and $s=1$ with an exception of a factor 2 which makes for an easy calculation as we already have the Saha-Boltzmann routine for E.
 
 \begin{center}
 1.5.1\textit{ Saha-Boltzmann population of H I and Ca$^+$ K}
@@ -250,14 +250,41 @@ We will now extend our Saha-Boltzmann analysis to neutral hydrogen H I. Hydrogen
 \begin{center}
 1.5.2\textit{ Solar H $\alpha$ versus Ca$^+$ K: Line strength}
 \end{center}
-If one studies the spectrum of the sun, as Payne did, one notices that the Ca$^+$ K spectral line is much stronger than the hydrogen $\alpha$ lines. This is strongly contradictory to the previous assumption made which says that the strength of the absorption lines scaled with the population density as one knows that hydrogen is massively more abundant than calcium. 
+If one studies the spectrum of the sun, as Payne did, one notices that the Ca$^+$ K spectral line is much stronger than the hydrogen $\alpha$ lines. This is strongly contradictory to the previous assumption made which says that the strength of the absorption lines scaled with the population density as one knows that hydrogen is massively more abundant than calcium ($N_\text{Ca}/N_\text{H} = 2 \cross 10^{-6}$). 
 
-However, the H $\alpha$ line is a $s = 2 \rightarrow 3$ transition, and by studying the Saha-Boltzmann distribution in figure \ref{fig:8} we see that the the H I $(S=2)$ abundance at solar temperatures is of order $10^{-10}$
+However, the H $\alpha$ line is a $s = 2 \rightarrow 3$ transition, and by studying the Saha-Boltzmann distribution in figure \ref{fig:8} we see that the the H I $(S=2)$ abundance at solar temperatures is of order $10^{-10}$. The Ca$^+$ K has the ground state as its lower transition, and has therefore the dominating population, which means that the assumption still holds.
 
+We can prove this by computing the expected strength ratio of these two lines as a function of temperature. We find this ratio by multiplying the calcium abundance with the Saha-Boltzmann ratio of the two elements. The result is then plotted in figure \ref{fig:9}. 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/strengthratio.pdf}
+	\caption{Solar line strength ratio Ca$^+$ K / H$\alpha$ with $P_e = 100$ dyn cm$^2$ }
+	\label{fig:9}
+\end{figure}
 
+\noindent At low temperatures we observe a complete domination by the calcium line. However, we see that the ratio exponentially weakens as the temperature increases. This is expected as there are more and more hydrogen atoms that get ionized, which leads to a higher H II abundance. 
 
+\begin{center}
+1.5.3\textit{ H $\alpha$ vs Ca$^+$ K: Temperature sensitivity}
+\end{center}
+It is of interest to study how the two lines differ in their temperature sensitivity. We can do so by computing and plotting the relative population changes 
+\[
+\frac{(\Delta n_\text{Ca}/\Delta T)}{n_\text{Ca}} \quad \text{and} \quad \frac{(\Delta n_\text{H}/\Delta T)}{n_\text{H}},
+\]
+where $\Delta T$ is a small temperature change. The result can be seen in the upper panel in figure \ref{fig:10}, where we have also plotted each population in relative units in the lower panel.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/tempsens.pdf}
+	\caption{Upper panel: Temperature sensitivity of Ca II and H $\alpha$. Lower panel: Relative population of the corresponding elements.}
+	\label{fig:10}
+\end{figure}
+From figure \ref{fig:10} we notice that both lines start of with roughly the same sensitivity. We spot two dips in the temperature sensitivity. One for Ca II around 5 600 K, and one for H $\alpha$ around 9 500 K. The dips seem to occur once the population of each respective line reach their maxima. This can be interpreted as the sensitivity being at its highest when the population experience change. Similarly, the sensitivity experiences a rapid drop for the short temperature range where the population remains constant at the maxima.
+
+The temperature sensitivity is essentially in some way the derivative of the population with respect to temperature. We see that the temperature sensitivity decreases at the left flank, so that $\Delta n < 0$, while the opposite is true at the right flank $\Delta n > 0$.
+
+We also note that H $\alpha$ is the more temperature sensitive line for temperatures which corresponds to those of the solar photosphere.
 
 
 \end{multicols}
