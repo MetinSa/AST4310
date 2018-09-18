@@ -183,10 +183,38 @@ We can also study what effects the electron pressure has on the saha distributio
 Figure \ref{fig:4} shows the difference $P_e$ makes when computing the Saha distribution. We note that in the lower subplot with $P_e = 10$ the distribution seems to have been squished towards the left. This means that ionization occurs at earlier temperatures for low values of electron pressure.
 
 We note that the Boltzmann and Saha distributions behave differently for increasing temperatures. The Boltzmann equation converges to to $g_{r,s}/U_r$ as $T \rightarrow \infty$. The same is not true for the Saha distribution. The two distributions share the term $e^{-\chi /kT}$ term which converges to 1 as $T \rightarrow $. However, the Saha distribution has a factor $T^{3/2}$ which grows exponentially as $T$ increases. This is the factor that separates the two distributions.
-The scaling with 1/Ne says that ionization is easier if there is room for the
-resulting free electron or, reversedly, that recombination from stage r + 1 to stage r requires
-catching a free electron.
 
+\begin{center}
+14.2\textit{ Payne curves for E}
+\end{center}
+The underlying premise in Payne's analysis was that one might expect that the observed strength of a spectral line involving level ($r,s$) scales with the Saha-Boltzmann prediction for the lower level population $n_{r,s}$ (if Thermodynamical equilibrium holds in a stellar atmosphere). We will study this as Payne did by computing the product of the two distributions in question and then plotting the results in a Payne-like graph. 
+
+We start by computing and plotting the ground state populations ($s=1$) for E with an electron pressure of $P_e = 131$ dyn cm$^2$. The result is seen in figure \ref{fig:5}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/payne_E.pdf}
+	\caption{Saha-Boltzmann distribution ground state populations for E.}
+	\label{fig:5}
+\end{figure}
+\noindent Figure \ref{fig:5} shows the so called Payne curves of the ground state population of E. Its easy to recognize that this plot as a product of the Saha and Boltzmann distributions. We note that the maximum amplitude decreases with increasing ionization which is a result of the Boltzmann distribution. The steep flanks on the left and right side are a result of the Saha distribution behaviour. We also see that the flanks get less steep as $T \rightarrow \infty$ which is also the case in the Saha distribution seen in \ref{fig:4}. The consequence of these steep flanks are that the probability of finding an unionized E I atom at temperatures above 10000 K is approximately 0. Similarely, for temperatures greater than 15000 K, most if not all atoms will be E II.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/payne_E_multi.pdf}
+	\caption{}
+	\label{fig:6}
+\end{figure}
+
+\noindent We will now further study the influence of the Boltzmann factor by adding curves of higher values of excitation states $s$. By including excitation levels up to $s=4$, we find the following result seen in figure \ref{fig:6}. First of all we notice that the ground state ($s=1$) dominate the population for all ionizations and across all temperatures. However, as $T \rightarrow \infty$ the ground state population of the different ionizations gets smaller, meaning that the population is distributed more evenly over the different states.
+
+These results resemble Payne's curves closely, which can be seen in figure 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/Payne.png}}
+	\caption{}
+	\label{fig:7}
+\end{figure}
 
 
 \end{multicols}
