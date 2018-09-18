@@ -158,7 +158,7 @@ With the partition function calculated, we can study the Boltzmann distribution 
 \noindent By studying figure \ref{fig:2} we notice that in thermal equilibrium, for all temperatures, the ground state always has the largest population. At $T = 5000$ K we have $n_{r,s}/N_r = 0.9$ for $s = 1$ and $n_{r,s}/N_r \approx 0.009$ for $s=2$ and so on for the lower levels which perfectly corresponds to those tabulated by Schadee. We see that all these add up to unity for all temperatures, which is a results off the scaling by $N_r$. We can conclude that the lowest levels are the most important ones which is a result of the rapid decay of the Boltzmann factor $e^{-\chi_{r,s}/kT}$. This can also explain the insensitivity of $U_r$ to temperature. 
 
 \begin{center}
-14.2\textit{ Saha distribution for E}
+1.4.2\textit{ Saha distribution for E}
 \end{center}
 We will now study the Saha distribution of the element E. By computing the saha equation \eqref{eq:4} for varying ionizations we obtain the results seen in figure \ref{fig:3}. Since this is a normalized distribution in the same way as the Boltzmann distribution, the ionizations always add up to one. We also notice that for solar temperatures, only 2 ionizations are significantly present. At $T = 5000$ we see that $N_{r+1}/N_r \approx 0.91$ for $r = 1$, while  $N_{r+1}/N_r \approx 0.089$ for $r = 2$, while the higher ionization stages are negligible. This means that for solar temperatures, E is mostly neutral. For higher temperatures around $T = 10000$ K, we find that $N_{r+1}/N_r \approx 0.95$ for $r = 2$ and $N_{r+1}/N_r \approx 0.05$ for $r = 3$, while the other ionizations are again negligible. These values correspond nicely to those found by in Schadee's table. This suggests that there are at all times mainly 2 ionizations stages present in a gas at a given temperature.
 
@@ -185,7 +185,7 @@ Figure \ref{fig:4} shows the difference $P_e$ makes when computing the Saha dist
 We note that the Boltzmann and Saha distributions behave differently for increasing temperatures. The Boltzmann equation converges to to $g_{r,s}/U_r$ as $T \rightarrow \infty$. The same is not true for the Saha distribution. The two distributions share the term $e^{-\chi /kT}$ term which converges to 1 as $T \rightarrow $. However, the Saha distribution has a factor $T^{3/2}$ which grows exponentially as $T$ increases. This is the factor that separates the two distributions.
 
 \begin{center}
-14.2\textit{ Payne curves for E}
+1.4.3\textit{ Payne curves for E}
 \end{center}
 The underlying premise in Payne's analysis was that one might expect that the observed strength of a spectral line involving level ($r,s$) scales with the Saha-Boltzmann prediction for the lower level population $n_{r,s}$ (if Thermodynamical equilibrium holds in a stellar atmosphere). We will study this as Payne did by computing the product of the two distributions in question and then plotting the results in a Payne-like graph. 
 
@@ -201,7 +201,7 @@ We start by computing and plotting the ground state populations ($s=1$) for E wi
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/payne_E_multi.pdf}
-	\caption{}
+	\caption{Payne curves for element E for various energy levels $s$. }
 	\label{fig:6}
 \end{figure}
 
@@ -211,10 +211,53 @@ These results resemble Payne's curves closely, which can be seen in figure
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{SSA/figures/Payne.png}}
-	\caption{}
+	\includegraphics[width=0.5\textwidth]{SSA/figures/Payne.png}
+	\caption{The original Payne curves (\textit{1924}). Upper panel displays the variations of observed line strengths. Lower panel displays the Saha-Boltzmann distribution.}
 	\label{fig:7}
 \end{figure}
+
+Our produced results in figure \ref{fig:6} are comparable to those of Payne seen in the lower panel of \ref{fig:7}. In order to reproduce her results more closely we would need to evaluatute the equations for the actual elements she used instead of E. Her results are plotted as a function of the Harvard classification of stellar spectra, while our is a function of temperature. Payne's conclusion was therefore that the Harvard classification is primarily an ordering of temperature based on the Saha-Boltzmann population statistics.
+
+\begin{center}
+1.5\textit{ Hydrogen H I}
+\end{center}
+We will now extend our Saha-Boltzmann analysis to neutral hydrogen H I. Hydrogen is a bit more complex than the imaginary element E, but still fairly simple. It has the following properties
+
+\begin{itemize}
+    \item Ionization energy $ \chi_1 = 13.598$ eV
+    \item Statistical weight $g_{1,s} = 2 s^2$
+    \item Level energy $\chi_{1,s} = 13.598(1 - 1/s^2)$ eV
+    \item Single ion stage $U_2 = g_{2,1} = 1$
+\end{itemize}
+
+\noindent In addition to hydrogen, we will also study the calcium line Ca$^+$ K. The Ca$^+$ K line behaves in the same way as element E for $r=2$ and $s=1$ which makes for an easy calculation as we already have the Saha-Boltzmann routine for E.
+
+\begin{center}
+1.5.1\textit{ Saha-Boltzmann population of H I and Ca$^+$ K}
+\end{center}
+
+\noindent By using the new information for Hydrogen and Ca$^+$, we have computed the Saha-Boltzmann distribution which can be seen in figure \ref{fig:8}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/sahabolt_HCA.pdf}
+	\caption{Saha-Boltzmann distribution of H I and Ca$^+$ K.}
+	\label{fig:8}
+\end{figure}
+
+\noindent We will ignore the Ca$^+$ K population to begin with. By comparing the Saha-Boltzmann distribution for H I and E I, seen in figure \ref{fig:6}, we see that there are some some similarities. The main difference being that H I seems to fall off more slowly for higher temperatures.
+
+\begin{center}
+1.5.2\textit{ Solar H $\alpha$ versus Ca$^+$ K: Line strength}
+\end{center}
+If one studies the spectrum of the sun, as Payne did, one notices that the Ca$^+$ K spectral line is much stronger than the hydrogen $\alpha$ lines. This is strongly contradictory to the previous assumption made which says that the strength of the absorption lines scaled with the population density as one knows that hydrogen is massively more abundant than calcium. 
+
+However, the H $\alpha$ line is a $s = 2 \rightarrow 3$ transition, and by studying the Saha-Boltzmann distribution in figure \ref{fig:8} we see that the the H I $(S=2)$ abundance at solar temperatures is of order $10^{-10}$
+
+
+
+
+
 
 
 \end{multicols}
