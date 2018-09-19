@@ -318,34 +318,47 @@ The Planck function specifies the intensity of electromagnetic radiation emitted
 \end{equation}
 where $c$ is the speed of light, $h$ is Planck's constant, $\lambda$ is the wavelength and $T$ is the temperature. $B_\lambda$ has dimension erg cm$^{-2}$ s$^{-1}$ cm$^{-1}$ steradian$^{-1}$ in cgs units.
 
-We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$). 
+We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$).
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planck.pdf}
-	\caption{Planck's law for wavelengths in the visible spectrum for temperatures in the range 5000 - 8000 K.}
-	\label{fig:11}
+	\caption{Planck's law for wavelengths $\lambda$ in the visible spectrum for [Å].}
+	\label{fig:12}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/plancklog.pdf}
 	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic y scale.}
-	\label{fig:12}
+	\label{fig:13}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planckloglog.pdf}
 	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic x and y scale.}
-	\label{fig:12}
+	\label{fig:14}
 \end{figure}
+
+ This is then plotted in three seperate figures, figure \ref{fig:12}, figure \ref{fig:13} which shows the Planck law with a logarithmic y-scale and figure \ref{fig:14} which shows the Planck law in a loglog plot.
+ 
+ We notice that $B_\lambda$ increases with temperature at any wavelength but faster towards the Wien regime. This is the regime where the Wien approximation or Wiens law holds. Figure \ref{fig:15} and figure \ref{fig:16} shows Planck's law in addition to the two approximations in Wien and Rayleigh-Jeans law's. We see that the Wien approximation is spot on for both the left and uppermost side of the Planck curve (low wavelengths). This region is therefore called the Wien regime. Figure \ref{fig:16} shows us the region where the Rayleigh-Jeans approximation is the best fit, which is at the right side of the Planck curve (high wavelengths).
+ 
+ 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapprox.pdf}
-	\caption{}
-	\label{fig:13}
+	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. Both Wien and Rayleigh-Jeans are approximations to Planck's law. This figure shows that Wien's approximation is accurate at the regime of low wavelengths $\lambda$ (Wien regime ).}
+	\label{fig:15}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapproxlog.pdf}
+	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. Both Wien and Rayleigh-Jeans are approximations to Planck's law. This figure shows that Rayleigh-Jeans approximation is accurate at the regime of high wavelengths $\lambda$ (Rayleigh-Jeans regime ).}
+	\label{fig:16}
 \end{figure}
 
 
