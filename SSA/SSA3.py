@@ -53,7 +53,7 @@ def plot_planck():
 		B[:] = planck(T, wav[:]*1e-8)
 		plt.plot(wav,B,color = "royalblue")
 
-	plt.title(r"Planck's Law for T $\in$ [5000,8000] ")
+	plt.title(r"Planck's Law for T $\in$ [5000,8000] K")
 	plt.xlabel(r'$\lambda$ [$\AA$]')
 	plt.ylabel(r"$B_\lambda$")
 	plt.xlim(0,20800)
