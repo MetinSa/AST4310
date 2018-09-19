@@ -412,20 +412,27 @@ def plot_T_sens():
 
 
 def plot_hot_cool():
-	T = np.linspace(1,2e4,1000)
+	T = np.linspace(1,2e4,10000)
 
 	nH = np.zeros(T.shape)
 	for i in range(len(T)):
 		nH[i] = sahabolt_H(T[i],1e2,1)
 
 	it = np.where(nH < 0.5 )[0][0]
-	plt.plot(T[it],nH[it],"o")
-
-	plt.plot(T,nH)
+	plt.title("Hot vs Cool stars")
+	plt.plot(T,nH,label = "Hydrogen fraction")
+	plt.plot(T[it],nH[it],'o',color = "black", label="T = %d K" %T[it])
+	plt.text(10000,0.55,"Hydrogen 50% ionized", fontsize = 14)
+	plt.text(1200,0.1, "Cool Stars",fontsize = 13)
+	plt.text(15000,0.1, "Hot Stars", fontsize = 13)
 	plt.xlabel('Temperature [K]')
+	plt.legend()
 	plt.ylabel('Neutral hydrogen fraction')
 	plt.grid(ls = "--")
+	plt.savefig("hotcool.pdf")
 	plt.show()
+
+	print (T[it])
 
 plot_hot_cool()
 
