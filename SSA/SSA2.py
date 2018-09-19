@@ -420,7 +420,8 @@ def plot_hot_cool():
 
 	it = np.where(nH < 0.5 )[0][0]
 	plt.title("Hot vs Cool stars")
-	plt.plot(T,nH,label = "H I fraction")
+	plt.plot(T,nH,label = "H I, fraction")
+	plt.axvline(x = T[it], ls = "--", color ="black", alpha = 0.5, label = "Transition")
 	plt.plot(T[it],nH[it],'o',color = "black", label="T = %d K" %T[it])
 	plt.text(10000,0.55,"Hydrogen 50% ionized", fontsize = 14)
 	plt.text(1200,0.1, "Cool Stars",fontsize = 13)
@@ -432,7 +433,7 @@ def plot_hot_cool():
 	plt.savefig("hotcool.pdf")
 	plt.show()
 
-	print (T[it])
+	# print (T[it])
 
 plot_hot_cool()
 
