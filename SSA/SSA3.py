@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import astropy.constants as cc
 from cycler import cycler
+from scipy import special
 
 
 default_cycler = (cycler(color=['royalblue', 'crimson', 'mediumseagreen', 'darkorange', "darkorchid", "sienna"]))
@@ -50,6 +51,17 @@ def rayleighjeans(T,wav):
 	"""
 
 	return 2*c*k_erg*T*wav**(-4)
+
+
+def voigt(gamma,x):
+
+	"""
+	Voigt profil.
+
+	"""
+
+	return special.wofz(x+1j*gamma).real 
+
 
 
 
@@ -126,12 +138,72 @@ def plot_planck_approx():
 	plt.xlim([0,1e5])
 	plt.legend()
 	plt.grid(ls ="--")
-	plt.savefig("planckapproxlog.pdf")
+	# plt.savefig("planckapproxlog.pdf")
 	plt.show()
 
 
-plot_planck_approx()
+# plot_planck_approx()
 
+
+def plot_optical_thickness():
+
+	B = 2
+	tau = np.linspace(0.01,10,100)
+	intensity = np.zeros(len(tau))
+
+	for I0 in range(4,-1,-1):
+		intensity[:] = I0 * np.exp(-tau[:]) + B*(1-np.exp(-tau[:]))
+		plt.plot(tau, intensity, label = 'I(0) = ' + str(I0))
+
+	plt.yscale('log')
+	plt.xscale('log')
+	plt.title(r"Emergent Intensity for $B_\lambda = 2$")
+	plt.xlabel(r'Optical depth $\tau$')
+	plt.ylabel('Intensity')
+	plt.grid(ls = "--")
+	plt.legend()
+	# plt.savefig("opticaldepthlog.pdf")
+	plt.show()	
+	
+	
+# plot_optical_thickness()
+
+
+def plot_voigt():
+
+	# u = np.arange(-10,10.1,0.1)
+	u = np.linspace(-10,10,1000)
+	a = np.array([0.001,0.01,0.1,1])
+	vau = np.zeros((a.shape[0],u.shape[0]))
+
+	for i in range(4):
+		vau[i,:] = voigt(a[i],u[:])
+		plt.plot(u[:],vau[i,:], label = 'a = ' + np.str(a[i]))
+
+	plt.title("Voigt Profile for varying a")
+	plt.ylim(0,1)
+	plt.xlim(-10,10)
+	plt.grid(ls = "--")
+	plt.legend()
+	plt.ylabel('Voigt profile')
+	plt.xlabel("u")
+	plt.savefig("voigt.pdf")
+	plt.show()
+
+	for i in range(4):
+		vau[i,:] = voigt(a[i],u[:])
+		plt.plot(u[:],vau[i,:], label = 'a = ' + np.str(a[i]))
+	plt.title("Voigt Profile for varying a")
+	plt.yscale('log')
+	plt.grid(ls = "--")
+	plt.legend()
+	plt.xlabel('u')
+	plt.ylabel('Logarithmic oigt profile')
+	plt.savefig("voigtlog.pdf")
+	plt.show()
+
+
+plot_voigt()
 
 
 
