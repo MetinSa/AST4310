@@ -102,7 +102,7 @@ def plot_planck_approx():
 
 	"""
 
-	wav = np.linspace(1000,20800,1000)
+	wav = np.linspace(400,120080,5000)	
 	B = np.zeros(len(wav))
 	W = np.zeros(len(wav))
 	R = np.zeros(len(wav))
@@ -117,16 +117,16 @@ def plot_planck_approx():
 	plt.plot(wav,W, label = "Wien's law", ls ="--")
 	plt.plot(wav,R, label = "Rayleigh-Jeans law", ls ="--")
 
-	# plt.ylim([8e13, 1e16])
+	plt.ylim([8e10, 1e16])
 	plt.yscale("log")
 	plt.xscale("log")
-	plt.title("Wien and Rayleigh-Jeans approximations")
+	plt.title("Wien and Rayleigh-Jeans approximations (loglog plot)")
 	plt.xlabel(r'$\lambda$ [$\AA$]')
 	plt.ylabel(r"$B_\lambda$")
-	plt.xlim(0,20800)
+	plt.xlim([0,1e5])
 	plt.legend()
 	plt.grid(ls ="--")
-	# plt.savefig("planckapprox.pdf")
+	plt.savefig("planckapproxlog.pdf")
 	plt.show()
 
 
