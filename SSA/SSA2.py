@@ -5,7 +5,7 @@ from cycler import cycler
 
 #defining constants and arrays
 # chi_ion = np.array([7, 16, 31, 51]) 		#schadee ionization energies into numpy array
-chi_ion = np.array([6, 12, 51, 67]) 			#Hydrogen ionization
+chi_ion = np.array([6, 12, 51, 67]) 		#Calcium ionization
 k_eV = 8.61734e-5 							#boltzmann constant/eV
 k_erg = 1.380658e-16						#boltzmann*erg
 m_e = 9.10939e-28							#electron mass
@@ -430,10 +430,10 @@ def plot_hot_cool():
 	plt.legend()
 	plt.ylabel('Neutral hydrogen fraction')
 	plt.grid(ls = "--")
-	plt.savefig("hotcool.pdf")
+	# plt.savefig("hotcool.pdf")
 	plt.show()
 
 	# print (T[it])
 
-plot_hot_cool()
+# plot_hot_cool()
 
