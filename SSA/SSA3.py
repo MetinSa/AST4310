@@ -285,8 +285,9 @@ def plot_spectral_lines(mode):
 			if wave == 5000e-8:
 				plt.axhline(y =  (intensity.max())/np.exp(1), color = "gray", ls= "--")
 				plt.text(2.8, 1e14, "Optically thick transition")
-			plt.savefig("ss"+str(savefileindex)+ ".pdf")
-			plt.show()	
+				print (intensity.max(),intensity.max()/np.exp(1))
+			# plt.savefig("ss"+str(savefileindex)+ ".pdf")
+			# plt.show()	
 			savefileindex += 1
 			# print(intensity.max(), intensity[0])
 	
