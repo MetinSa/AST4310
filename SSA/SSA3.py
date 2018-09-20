@@ -199,11 +199,80 @@ def plot_voigt():
 	plt.legend()
 	plt.xlabel('u')
 	plt.ylabel('Logarithmic oigt profile')
-	plt.savefig("voigtlog.pdf")
+	# plt.savefig("voigtlog.pdf")
 	plt.show()
 
 
-plot_voigt()
+# plot_voigt()
 
+def plot_spectral_lines(mode):	
 
+	T_s = 5700 					#solar surface temperature
+	T_l = 4200 					#solar T-min temperature - 'reversing layer'
+	a = 0.1 						#damping parameter
+	wav = 5000e-8 					#wavelength in cm
+	tau0 = 1 						#reversing layer thickness at line center
+	u  = np.linspace(-10,10,1000)
+	intensity = np.zeros(len(u))	
+	logtau0 = np.linspace(-2,2,9)
+
+	if mode == "single":
+		for i in range(len(u)):	
+
+			tau = tau0 * voigt(a, u[i])
+			intensity[i] = planck(T_s,wav) * np.exp(-tau) + planck(T_l,wav)*(1.-np.exp(-tau))	
+
+		
+		plt.plot(u,intensity, label = r"$\tau_0 = 1$")
+		plt.grid(ls="--")
+		plt.title(r"$T_\mathrm{surface} = 5700$ K, $T_\mathrm{layer} = 4200$ K, $a = 0.1$ , $\lambda = 5000$ Å", fontsize = 11)
+		plt.xlabel("u")
+		plt.legend()
+		plt.ylabel(r"I$_\lambda$")
+		# plt.savefig("ssline.pdf")
+		plt.show()
+	
+	
+	elif mode == "multi":
+
+		for itau in range(len(logtau0)):
+			for i in range(len(u)):
+				tau = 10**(logtau0[itau]) * voigt(a, u[i])
+				intensity[i] = planck(T_s,wav) * np.exp(-tau) + planck(T_l,wav)*(1-np.exp(-tau))
+			plt.plot(u,intensity, label = r'$\tau_0 = %.2f$' %10**(logtau0[itau]))		
+
+		plt.grid(ls="--")
+		plt.title(r"$T_\mathrm{surface} = 5700$ K, $T_\mathrm{layer} = 4200$ K, $a = 0.1$ , $\lambda = 5000$ Å", fontsize = 11)
+		plt.xlabel("u")
+		plt.ylabel(r"I$_\lambda$")
+		plt.legend()
+		plt.savefig("sslines.pdf")
+		plt.show()	
+	
+	elif mode == "var_wave":
+		savefileindex = 0
+		wavelist = [2000e-8, 5000e-8, 10000e-8 ]
+		for wave in wavelist:
+
+			for itau in range(len(logtau0)):
+				for i in range(len(u)):	
+
+					tau = 10**(logtau0[itau]) * voigt(a,u[i])
+					intensity[i] = planck(T_s,wave) * np.exp(-tau) + planck(T_l,wave)*(1.-np.exp(-tau))	
+
+				plt.plot(u,intensity, label = r'$\tau_0 = %.2f$' %10**(logtau0[itau]))
+			plt.grid(ls="--")
+			plt.title(r"$T_\mathrm{surface} = 5700$ K, $T_\mathrm{layer} = 4200$ K, $a = 0.1$ , $\lambda = %g$ Å" %(wave*1e8), fontsize = 11)
+			plt.xlabel("u")
+			plt.ylabel(r"I$_\lambda$")
+			plt.legend()
+			plt.savefig("ss"+str(savefileindex)+ ".pdf")
+			plt.show()	
+			savefileindex += 1
+	
+# plot_spectral_lines("single")
+plot_spectral_lines("multi")
+# plot_spectral_lines("var_wave")
+
+	
 
