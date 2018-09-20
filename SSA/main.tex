@@ -318,21 +318,28 @@ The Planck function specifies the intensity of electromagnetic radiation emitted
 \end{equation}
 where $c$ is the speed of light, $h$ is Planck's constant, $\lambda$ is the wavelength and $T$ is the temperature. $B_\lambda$ has dimension erg cm$^{-2}$ s$^{-1}$ cm$^{-1}$ steradian$^{-1}$ in cgs units.
 
-We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$).
+We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$). This is then plotted in three seperate figures, figure \ref{fig:12}, figure \ref{fig:13} which shows the Planck law with a logarithmic y-scale and figure \ref{fig:14} which shows the Planck law in a loglog plot. Comments on the observed results in these figures are found in their respective captions. 
+
+We notice that $B_\lambda$ increases with temperature at any wavelength but faster towards the Wien regime. This is the regime where the Wien approximation or Wiens law holds. Figure \ref{fig:15} and figure \ref{fig:16} shows Planck's law in addition to the two approximations in Wien and Rayleigh-Jeans law's. We see that the Wien approximation is spot on for both the left and uppermost side of the Planck curve (low wavelengths). This region is therefore called the Wien regime. Figure \ref{fig:16} shows us the region where the Rayleigh-Jeans approximation is the best fit, which is at the right side of the Planck curve (high wavelengths). 
+ 
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planck.pdf}
-	\caption{Planck's law for wavelengths $\lambda$ in the visible spectrum for [Å].}
+	\caption{Planck's law for wavelengths $\lambda$ in the visible spectrum for [Å]. $B_\lambda$ increase with temperature at all wavelengths with the maximum intensity of each temperature occurring at the low ends of the wavelengths. We note that the maximas are slightly shifted towards lower wavelengths for higher temperatures. }
 	\label{fig:12}
 \end{figure}
+
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/plancklog.pdf}
-	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic y scale.}
+	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic y scale. We see that it is easier to interpret the magnitude of the intensity for the different wavelengths in this format. We see that for some very small wavelengths $B_\lambda$ drops down to below 10$^8$. We can also see that each temperature has a different initial intensity. We also see that large wavelengths do in general have more intensity than he very small wavelengths (even though the maximima occurs at relatively small wavelengths). Its also easier to see that the maximas are shifter towards lower wavelengths for higher temperatures in this format.}
 	\label{fig:13}
 \end{figure}
+
 
 \begin{figure}[H]
 	\centering
@@ -340,52 +347,81 @@ We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20
 	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic x and y scale.}
 	\label{fig:14}
 \end{figure}
-
- This is then plotted in three seperate figures, figure \ref{fig:12}, figure \ref{fig:13} which shows the Planck law with a logarithmic y-scale and figure \ref{fig:14} which shows the Planck law in a loglog plot.
  
- We notice that $B_\lambda$ increases with temperature at any wavelength but faster towards the Wien regime. This is the regime where the Wien approximation or Wiens law holds. Figure \ref{fig:15} and figure \ref{fig:16} shows Planck's law in addition to the two approximations in Wien and Rayleigh-Jeans law's. We see that the Wien approximation is spot on for both the left and uppermost side of the Planck curve (low wavelengths). This region is therefore called the Wien regime. Figure \ref{fig:16} shows us the region where the Rayleigh-Jeans approximation is the best fit, which is at the right side of the Planck curve (high wavelengths).
- 
- 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapprox.pdf}
-	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. Both Wien and Rayleigh-Jeans are approximations to Planck's law. This figure shows that Wien's approximation is accurate at the regime of low wavelengths $\lambda$ (Wien regime ).}
+	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. This figure shows that Wien's approximation is accurate at the regime of low wavelengths $\lambda$ (Wien regime ).}
 	\label{fig:15}
 \end{figure}
 
+\begin{center}
+2.2\textit{ Radiation through isothermal layer}
+\end{center}
+We will now study a beam of radiation intensity $I(0)$ that passes through a layer. Depending of the features of this layer, the emerging intensity will be attenuated by absorption. The weakened intensity that emerges from the layer is given by $I = I(0) e^{- \tau}$, where $\tau$ also called the "optical thickness" is the decay parameter which specifies total opaqueness. 
+
+We also need to account for the radiation that originated from within the layer itself. This is locally given as $\Delta I = B_\lambda(T) \Delta \tau$.
+It can then be shown that the total emergent radiation from a layer is given as
+\begin{equation}
+    I_\lambda = I_\lambda(0) e^{-\tau} + \int_0^\tau B_\lambda [T(x)] e^{-(-\tau - \tau(x))},
+\end{equation}
+which for an isothermal layer (the type we will consider here) can be reduced to
+\begin{equation}
+    I_\lambda = I_\lambda(0) e^{-\tau} + B_\lambda (1- e^{-\tau}).
+\end{equation}
+
+We can study this by plotting the intensity. This can be seen in figures \ref{fig:17} and \ref{fig:18}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapproxlog.pdf}
-	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. Both Wien and Rayleigh-Jeans are approximations to Planck's law. This figure shows that Rayleigh-Jeans approximation is accurate at the regime of high wavelengths $\lambda$ (Rayleigh-Jeans regime ).}
+	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. This figure shows that Rayleigh-Jeans approximation is accurate at the regime of high wavelengths $\lambda$ (Rayleigh-Jeans regime ) as it converges towards Planck's law for high wavelengths while Wien's approximation diverges}
 	\label{fig:16}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepth.pdf}
-	\caption{}
+	\caption{Intensity $I_\lambda$ plotted for optical depth $\tau \in [0,10]$ for 5 different initial intensities $I(0)$. We have used $B_\lambda = 2$ which is the intensity originating from the layer. For $\tau \gg 1$ nothing comes through the layer, while everything comes through if $\tau \ll 1$. This can be seen if one looks at $\tau = 0$, where we see that the emergent intensity is equal to the initial intensity. We also see that optically thin layers generate next to non intensity by themselves. All intensities end up converging to $B_\lambda$ for $\tau \gg 1$.}
 	\label{fig:17}
 \end{figure}
+\begin{center}
+2.3\textit{ Schuster-Schwarzschild model and Voigt profile}
+\end{center}
 
+We will now apply the results from the isothermal layer to a simple solar model, the Schuster-Schwarzschild model. In this model, the emergent radiation of the line wavelengths is given by
+
+\begin{equation}\label{eq:8}
+    I_\lambda = B_\lambda (T_\text{surface}e^{-\tau_\lambda }) + B_\lambda (T_\text{layer}) (1-e^{-\tau_\lambda}),
+\end{equation}
+where we see that the opaqueness $\tau$ in \eqref{eq:8} has been indexed with $\lambda$. This is because the optical depth varies over the spectral line which results in line broadening.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepthlog.pdf}
-	\caption{}
+	\caption{This figure shows the results of figure \ref{fig:17} plotted in a log-log plot which allows us to study what happens for $\tau \ll 1$. We see that even for  $I(0) = 0$ (no incoming radiation), the layer still emits some radiation as long as the layer has an optical depth. As the depth increases, the layer radiates more and more intensity, which eventually converges at the source intensity $B_\lambda$.}
 	\label{fig:18}
 \end{figure}
+
+ \noindent This broadening can be described through the distribution 
+\begin{equation}
+    \tau(u) = \tau(0) V(a,u),
+\end{equation}
+where $V$ is the Voigt function and the parameters $a$ and $u$ represent the dampening and wavelength separation. The Voigt function is defined through the convolution of a Gauss profile with a Lorentz profile, and can be approximated to read
+\begin{equation}\label{eq:10}
+    V(a,u) \approx \frac{1}{\Delta \lambda_D \sqrt{\pi}} \left[ e^{-u^2} + \frac{a}{\sqrt{\pi}u^2} \right].
+\end{equation}
+We will study the Voigt function by plotting it in the range $u \in [-10,10]$ for $a=0.1$, $a = 0.01$, $a = 0.001$ and $a = 0.0001$. The results are seen in figures \ref{fig:19} and \ref{fig:20}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/voigt.pdf}
-	\caption{}
+	\caption{Voigt profile approximation for varying levels of dampening. We see that the profiles have an amplitude around $u=0$. This can be seen from the approximation \eqref{eq:10} where we see that both terms in the bracket decrease as $\pm u$ deviate from 0. We also note that the amplitude of the profiles increase with smaller values of $a$. This seems to contradict the approximation from which one would think the profile would decrease with a. The left term in the bracked also seems to pose problems when u becomes 0 as the term would become infinity.}
 	\label{fig:19}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/voigtlog.pdf}
-	\caption{}
+	\caption{This figure shows the Void profile with logarithmic y-scale. This lets us inspect the the behaviour of the outer wins of the profile. We see that different values of a also results in the profile converging at different values. Smaller a values result in smaller end values, which matches the approximation. }
 	\label{fig:20}
 \end{figure}
 
