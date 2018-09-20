@@ -5,7 +5,7 @@ from cycler import cycler
 from scipy import special
 
 
-default_cycler = (cycler(color=['royalblue', 'crimson', 'mediumseagreen', 'darkorange', "darkorchid", "sienna"]))
+default_cycler = (cycler(color=['royalblue', 'crimson', 'mediumseagreen', 'darkorange', "darkorchid", "sienna", "navy", "gold", "lightcoral"]))
 plt.rc('axes', prop_cycle=default_cycler)
 
 """
@@ -63,6 +63,22 @@ def voigt(gamma,x):
 	return special.wofz(x+1j*gamma).real 
 
 
+def profile(a,tau0,u):
+
+	"""
+	Spectral line profile.
+
+	"""
+	Ts = 5700
+	Tl = 4200
+	wav = 2000e-8
+	intensity = np.zeros(len(u))
+
+	for i in range(len(u)):
+		tau = tau0 * voigt(a, u[i])
+		intensity[i] = planck(Ts,wav)*np.exp(-tau) + planck(Tl,wav)*(1.-np.exp(-tau))
+
+	return intensity
 
 
 """
@@ -229,7 +245,7 @@ def plot_spectral_lines(mode):
 		plt.xlabel("u")
 		plt.legend()
 		plt.ylabel(r"I$_\lambda$")
-		# plt.savefig("ssline.pdf")
+		plt.savefig("ssline.pdf")
 		plt.show()
 	
 	
@@ -270,9 +286,34 @@ def plot_spectral_lines(mode):
 			plt.show()	
 			savefileindex += 1
 	
-# plot_spectral_lines("single")
+plot_spectral_lines("single")
 plot_spectral_lines("multi")
-# plot_spectral_lines("var_wave")
+plot_spectral_lines("var_wave")
+
+
+
+# Checking the profile
+
+def plot_profile():
+
+	u = np.linspace(-200,200,1000)
+	a = 0.1
+	tau0 = 1e2	
+
+	intensity = profile(a,tau0,u)	
+
+	plt.plot(u,intensity)
+	plt.show()	
+	
+
+	# relative
+	reldepth = (intensity[0]-intensity)/intensity[0]
+	plt.plot(u,reldepth)
+	plt.show()
+	eqw = sum(reldepth)*0.4
+	#print eqw
+
+# plot_profile()
 
 	
 
