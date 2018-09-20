@@ -282,12 +282,16 @@ def plot_spectral_lines(mode):
 			plt.xlabel("u")
 			plt.ylabel(r"I$_\lambda$")
 			plt.legend()
+			if wave == 5000e-8:
+				plt.axhline(y =  (intensity.max())/np.exp(1), color = "gray", ls= "--")
+				plt.text(2.8, 1e14, "Optically thick transition")
 			plt.savefig("ss"+str(savefileindex)+ ".pdf")
 			plt.show()	
 			savefileindex += 1
+			# print(intensity.max(), intensity[0])
 	
-plot_spectral_lines("single")
-plot_spectral_lines("multi")
+# plot_spectral_lines("single")
+# plot_spectral_lines("multi")
 plot_spectral_lines("var_wave")
 
 
