@@ -303,6 +303,11 @@ The results of this can be seen in figure \ref{fig:11}. We observe that the poin
 	\label{fig:11}
 \end{figure}
 
+\begin{center}
+1.6\textit{ Conclusion / Discussion to part 1}
+\end{center}
+Most of the results have been discussed through out the report, but we will give a short summary. By recreating the work of Cecilia Payne, we have learned about the statistical distributions that govern the behavior of stellar spectra. We have seen how the energy levels of the atoms in stellar objects are distributed through the Boltzmann equation. We have also looked at how the ionization population changes with temperature through studying the Saha distribution. We have then seen that combining these two distributions result in a Payne-like graph which gives a good overview of properties we would expect to see by studying stellar objects. By comparing our "Payne-curves" to observations done, we can see that the Harvard classification is a ordering of temperature based on these statistics. These statistics can also be applied to study strenght ratios between different lines and define "Hot" and "Cool" stars. 
+
 
 \begin{center}
 \textsc{2. The Origin of Spectral lines}
@@ -318,11 +323,7 @@ The Planck function specifies the intensity of electromagnetic radiation emitted
 \end{equation}
 where $c$ is the speed of light, $h$ is Planck's constant, $\lambda$ is the wavelength and $T$ is the temperature. $B_\lambda$ has dimension erg cm$^{-2}$ s$^{-1}$ cm$^{-1}$ steradian$^{-1}$ in cgs units.
 
-We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$). This is then plotted in three seperate figures, figure \ref{fig:12}, figure \ref{fig:13} which shows the Planck law with a logarithmic y-scale and figure \ref{fig:14} which shows the Planck law in a loglog plot. Comments on the observed results in these figures are found in their respective captions. 
-
-We notice that $B_\lambda$ increases with temperature at any wavelength but faster towards the Wien regime. This is the regime where the Wien approximation or Wiens law holds. Figure \ref{fig:15} and figure \ref{fig:16} shows Planck's law in addition to the two approximations in Wien and Rayleigh-Jeans law's. We see that the Wien approximation is spot on for both the left and uppermost side of the Planck curve (low wavelengths). This region is therefore called the Wien regime. Figure \ref{fig:16} shows us the region where the Rayleigh-Jeans approximation is the best fit, which is at the right side of the Planck curve (high wavelengths). 
- 
-
+We can compute the Planck law for wavelengths in the visible spectrum (1000 - 20800 Å for temperatures $T \in [5000, 8000] K$). This is then plotted in three seperate figures, figure \ref{fig:12}, figure \ref{fig:13} which shows the Planck law with a logarithmic y-scale and figure \ref{fig:14} which shows the Planck law in a loglog plot.
 
 \begin{figure}[H]
 	\centering
@@ -331,8 +332,6 @@ We notice that $B_\lambda$ increases with temperature at any wavelength but fast
 	\label{fig:12}
 \end{figure}
 
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/plancklog.pdf}
@@ -340,11 +339,14 @@ We notice that $B_\lambda$ increases with temperature at any wavelength but fast
 	\label{fig:13}
 \end{figure}
 
+We notice that $B_\lambda$ increases with temperature at any wavelength but faster towards the Wien regime. This is the regime where the Wien approximation or Wiens law holds. Figure \ref{fig:15} and figure \ref{fig:16} shows Planck's law in addition to the two approximations in Wien and Rayleigh-Jeans law's. We see that the Wien approximation is spot on for both the left and uppermost side of the Planck curve (low wavelengths). This region is therefore called the Wien regime. Figure \ref{fig:16} shows us the region where the Rayleigh-Jeans approximation is the best fit, which is at the right side of the Planck curve (high wavelengths). 
+
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planckloglog.pdf}
-	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic x and y scale.}
+	\caption{Planck's law for wavelengths in the visible spectrum with logarithmic x and y scale. Plotting the law in a loglog plot displays a different curvature compared to two previous figures. low wavelengths with different temperatures are separated further from each other and can more easily be studied.}
 	\label{fig:14}
 \end{figure}
  
@@ -355,10 +357,27 @@ We notice that $B_\lambda$ increases with temperature at any wavelength but fast
 	\label{fig:15}
 \end{figure}
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapproxlog.pdf}
+	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. This figure shows that Rayleigh-Jeans approximation is accurate at the regime of high wavelengths $\lambda$ (Rayleigh-Jeans regime ) as it converges towards Planck's law for high wavelengths while Wien's approximation diverges}
+	\label{fig:16}
+\end{figure}
+
 \begin{center}
 2.2\textit{ Radiation through isothermal layer}
 \end{center}
-We will now study a beam of radiation intensity $I(0)$ that passes through a layer. Depending of the features of this layer, the emerging intensity will be attenuated by absorption. The weakened intensity that emerges from the layer is given by $I = I(0) e^{- \tau}$, where $\tau$ also called the "optical thickness" is the decay parameter which specifies total opaqueness. 
+We will now study a beam of radiation intensity $I(0)$ that passes through a layer. Depending of the features of this layer, the emerging intensity will be attenuated by absorption. The weakened intensity that emerges from the layer is given by $I = I(0) e^{- \tau}$, where $\tau$, also called the "optical thickness" is the decay parameter which specifies total opaqueness. 
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepth.pdf}
+	\caption{Intensity $I_\lambda$ plotted for optical depth $\tau \in [0,10]$ for 5 different initial intensities $I(0)$. We have used $B_\lambda = 2$ which is the intensity originating from the layer. For $\tau \gg 1$ nothing comes through the layer, while everything comes through if $\tau \ll 1$. This can be seen if one looks at $\tau = 0$, where we see that the emergent intensity is equal to the initial intensity. We also see that optically thin layers generate next to non intensity by themselves. All intensities end up converging to $B_\lambda$ for $\tau \gg 1$.}
+	\label{fig:17}
+\end{figure}
 
 We also need to account for the radiation that originated from within the layer itself. This is locally given as $\Delta I = B_\lambda(T) \Delta \tau$.
 It can then be shown that the total emergent radiation from a layer is given as
@@ -371,22 +390,19 @@ which for an isothermal layer (the type we will consider here) can be reduced to
 \end{equation}
 
 We can study this by plotting the intensity. This can be seen in figures \ref{fig:17} and \ref{fig:18}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{SSA/figures/planckapproxlog.pdf}
-	\caption{Planck's, Wien's and Rayleigh-Jeans law plotted in the same figure. This figure shows that Rayleigh-Jeans approximation is accurate at the regime of high wavelengths $\lambda$ (Rayleigh-Jeans regime ) as it converges towards Planck's law for high wavelengths while Wien's approximation diverges}
-	\label{fig:16}
-\end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepth.pdf}
-	\caption{Intensity $I_\lambda$ plotted for optical depth $\tau \in [0,10]$ for 5 different initial intensities $I(0)$. We have used $B_\lambda = 2$ which is the intensity originating from the layer. For $\tau \gg 1$ nothing comes through the layer, while everything comes through if $\tau \ll 1$. This can be seen if one looks at $\tau = 0$, where we see that the emergent intensity is equal to the initial intensity. We also see that optically thin layers generate next to non intensity by themselves. All intensities end up converging to $B_\lambda$ for $\tau \gg 1$.}
-	\label{fig:17}
+	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepthlog.pdf}
+	\caption{This figure shows the results of figure \ref{fig:17} plotted in a log-log plot which allows us to study what happens for $\tau \ll 1$. We see that even for  $I(0) = 0$ (no incoming radiation), the layer still emits some radiation as long as the layer has an optical depth. As the depth increases, the layer radiates more and more intensity, which eventually converges at the source intensity $B_\lambda$.}
+	\label{fig:18}
 \end{figure}
+
 \begin{center}
 2.3\textit{ Schuster-Schwarzschild model and Voigt profile}
 \end{center}
+
+
 
 We will now apply the results from the isothermal layer to a simple solar model, the Schuster-Schwarzschild model. In this model, the emergent radiation of the line wavelengths is given by
 
@@ -394,12 +410,6 @@ We will now apply the results from the isothermal layer to a simple solar model,
     I_\lambda = B_\lambda (T_\text{surface}e^{-\tau_\lambda }) + B_\lambda (T_\text{layer}) (1-e^{-\tau_\lambda}),
 \end{equation}
 where we see that the opaqueness $\tau$ in \eqref{eq:8} has been indexed with $\lambda$. This is because the optical depth varies over the spectral line which results in line broadening.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{SSA/figures/opticaldepthlog.pdf}
-	\caption{This figure shows the results of figure \ref{fig:17} plotted in a log-log plot which allows us to study what happens for $\tau \ll 1$. We see that even for  $I(0) = 0$ (no incoming radiation), the layer still emits some radiation as long as the layer has an optical depth. As the depth increases, the layer radiates more and more intensity, which eventually converges at the source intensity $B_\lambda$.}
-	\label{fig:18}
-\end{figure}
 
  \noindent This broadening can be described through the distribution 
 \begin{equation}
@@ -424,6 +434,8 @@ We will study the Voigt function by plotting it in the range $u \in [-10,10]$ fo
 	\caption{This figure shows the Void profile with logarithmic y-scale. This lets us inspect the the behaviour of the outer wins of the profile. We see that different values of a also results in the profile converging at different values. Smaller a values result in smaller end values, which matches the approximation. }
 	\label{fig:20}
 \end{figure}
+
+\newpage
 
 \begin{center}
 2.4\textit{ Emergent line profiles}
@@ -475,7 +487,7 @@ Numerically, we compute this by summing $(I_\lambda - I(0))d\lambda/I_\lambda$, 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/lprof.pdf}
-	\caption{Schuster-Schwarzschild line profile for $\lambda = 5000$. This is the same result as the $\tau_0 = 100$ seen in figure 23, with the only difference being the $u$ range on the x-axis which results in a thinner looking profile.}
+	\caption{Schuster-Schwarzschild line profile for $\lambda = 5000$ Å. This is the same result as the $\tau_0 = 100$ seen in figure 23, with the only difference being the $u$ range on the x-axis which results in a thinner looking profile.}
 	\label{fig:25}
 \end{figure}
 
@@ -503,6 +515,22 @@ The main purpose of the equivalent width is that it can be used to measure the n
 	\includegraphics[width=0.5\textwidth]{SSA/figures/growthmulti.pdf}
 	\caption{Similar equivalent width plot as in figure \ref{fig:28}, but now with varying values of the dampening parameter $a$. We see that change this parameter changes the behaviour of the the non $\tau_0 \ll 1$ regime. One can compare the curve of growth with the empirical curve of growth for the solar iron lines by tuning this parameter. By comparing the two curves we find that the solar iron lines has a dampening parameter roughly in between $a = 0.01$ and $a = 0.1$. }
 	\label{fig:28}
+\end{figure}
+
+Finally, we note that if one wants to produce emmision lines rather than absorption, one needs to tune the temperatures used. We find that if $T_\text{surface} > T_\text{layer}$ we get absorption, if the opposite is true, we get emission. The emission line produces by changing this up is seen in figure \ref{fig:29}, and the corresponding growth curve in figure \ref{fig:30}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/emissionlines.pdf}
+	\caption{We have replotted the Schuster-Schwarzschild line profile with $\lambda = 5000$ Å, seen in figure \ref{fig:25}, but now with a layer temperature of 7200 K. We see that this results in emmision lines instead of absorption lines.}
+	\label{fig:29}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/emissiongrowth.pdf}
+	\caption{Curve of Growth for the emission line in figure \ref{fig:29} . We have computed the absolute value of the equivalent width in order to not get negative values. We see that the curve very much resembles that of the absorption line.}
+	\label{fig:30}
 \end{figure}
 
 \end{multicols}
