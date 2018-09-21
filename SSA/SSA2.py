@@ -3,9 +3,8 @@ import matplotlib.pyplot as plt
 import astropy.constants as cc
 from cycler import cycler
 
-#defining constants and arrays
 # chi_ion = np.array([7, 16, 31, 51]) 		#schadee ionization energies into numpy array
-chi_ion = np.array([6, 12, 51, 67]) 		#Calcium ionization
+# chi_ion = np.array([6, 12, 51, 67]) 		#Calcium ionization
 k_eV = 8.61734e-5 							#boltzmann constant/eV
 k_erg = 1.380658e-16						#boltzmann*erg
 m_e = 9.10939e-28							#electron mass
