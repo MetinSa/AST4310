@@ -301,12 +301,14 @@ def plot_profile():
 	wav = 5000e-8
 	Ts = 5700
 	Tl = 4200
-	intensity = profile(a,tau0,u,wav,Ts,Tl)	
+	Tl_new = 7200
 
 	"""
 	Spectral line
 
 	"""
+	# intensity = profile(a,tau0,u,wav,Ts,Tl)	
+
 	# plt.plot(u,intensity)
 	# plt.grid(ls="--")
 	# plt.title(r"Line profile, $a = 0.1$, $\tau_0 = 100$")
@@ -339,45 +341,85 @@ def plot_profile():
 	Curve of growth
 
 	"""
+	# tau0list = np.logspace(-2,4,61)
+	# eqwlist = np.zeros(len(tau0list))
+
+	# for i in range(61):
+	# 	intensity = profile(a,tau0list[i],u,wav,Ts,Tl)
+	# 	reldepth = (intensity[0]-intensity)/intensity[0]
+	# 	eqwlist[i] = sum(reldepth)*du
+
+	# plt.plot(tau0list,eqwlist)
+	# plt.grid(ls="--")
+	# plt.title(r"Equivalent width lines from reversing layer, $a = 0.1$")
+	# plt.xlabel(r"$\tau_0$")
+	# plt.ylabel("Equivalent width")
+	# plt.yscale('log')
+	# plt.xscale('log')
+	# # plt.savefig("growth.pdf")
+	# plt.show()
+
+
+	# alist = [0.01, 0.1, 1]
+
+	# for k in range(len(alist)):
+	# 	for i in range(61):
+	# 		intensity = profile(alist[k],tau0list[i],u,wav,Ts,Tl)
+	# 		reldepth = (intensity[0]-intensity)/intensity[0]
+	# 		eqwlist[i] = sum(reldepth)*du
+
+	# 	plt.plot(tau0list,eqwlist,label = "a = %.2f"%alist[k])
+
+	# plt.grid(ls="--")
+	# plt.title(r"Equivalent width lines from reversing layer")
+	# plt.xlabel(r"$\tau_0$")
+	# plt.ylabel("Equivalent width")
+	# plt.legend()
+	# plt.yscale('log')
+	# plt.xscale('log')
+	# # plt.savefig("growthmulti.pdf")
+	# plt.show()
+
+	"""
+	Emission lines
+
+	"""
+
+	# intensity = profile(a,tau0,u,wav,Ts,Tl_new)	
+
+	# plt.plot(u,intensity, label = r"T$_\mathrm{layer} >$ T$_\mathrm{surface}$")
+	# plt.grid(ls="--")
+	# plt.title(r"Emission line profile, $a = 0.1$, $\tau_0 = 100$")
+	# plt.text(-200,3e14,r"T$_\mathrm{surface} = 5700$ K")
+	# plt.text(100,3e14,r"T$_\mathrm{layer} = 7200$ K")
+	# plt.xlabel("u")
+	# plt.ylabel(r"I$_\lambda$")
+	# plt.legend()
+	# plt.savefig("emissionlines.pdf")
+	# plt.show()	
+
+
 	tau0list = np.logspace(-2,4,61)
 	eqwlist = np.zeros(len(tau0list))
 
 	for i in range(61):
-		intensity = profile(a,tau0list[i],u,wav,Ts,Tl)
+		intensity = profile(a,tau0list[i],u,wav,Ts,Tl_new)
 		reldepth = (intensity[0]-intensity)/intensity[0]
 		eqwlist[i] = sum(reldepth)*du
 
-	plt.plot(tau0list,eqwlist)
+	plt.plot(tau0list,abs(eqwlist))
 	plt.grid(ls="--")
-	plt.title(r"Equivalent width lines from reversing layer, $a = 0.1$")
+	plt.title(r"abs(Equivalent width) of emission lines, $a = 0.1$")
 	plt.xlabel(r"$\tau_0$")
-	plt.ylabel("Equivalent width")
+	plt.ylabel("abs(Equivalent width)")
 	plt.yscale('log')
 	plt.xscale('log')
-	plt.savefig("growth.pdf")
+	plt.savefig("emissiongrowth.pdf")
 	plt.show()
 
-
-	alist = [0.01, 0.1, 1]
-
-	for k in range(len(alist)):
-		for i in range(61):
-			intensity = profile(alist[k],tau0list[i],u,wav,Ts,Tl)
-			reldepth = (intensity[0]-intensity)/intensity[0]
-			eqwlist[i] = sum(reldepth)*du
-
-		plt.plot(tau0list,eqwlist,label = "a = %.2f"%alist[k])
-
-	plt.grid(ls="--")
-	plt.title(r"Equivalent width lines from reversing layer")
-	plt.xlabel(r"$\tau_0$")
-	plt.ylabel("Equivalent width")
-	plt.legend()
-	plt.yscale('log')
-	plt.xscale('log')
-	plt.savefig("growthmulti.pdf")
-	plt.show()
 
 plot_profile()
+
+
 
 	
