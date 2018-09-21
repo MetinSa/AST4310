@@ -482,16 +482,28 @@ Numerically, we compute this by summing $(I_\lambda - I(0))d\lambda/I_\lambda$, 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/eqwidth.pdf}
-	\caption{Relative intensity of line profile from figure \ref{fig:25}. This relative intensity only considers the difference in intensity from the continuum's intensity which results in an inverted figure. We have also normalized by dividing by $I\text{cont}$. The equivalent width is then computed using equation \eqref{eq:11}.}
+	\caption{Relative intensity of line profile from figure \ref{fig:25}. This relative intensity only considers the difference in intensity from the continuum's intensity which results in an inverted figure. We have also normalized by dividing by $I_\text{cont}$. The equivalent width is then computed using equation \eqref{eq:11}.}
 	\label{fig:26}
 \end{figure}
 
 \begin{center}
 2.6\textit{ Curve of growth}
 \end{center}
-The main purpose of the equivalent width is that it can be used to measure the number of atoms in the reversing layer. From our profile plots we have illustrated that the intensity growth is only linear for $\tau_0 \ll 0$. In order to full growth of the line or the "curve of growth" we will plot $W_\lambda$ against log $\tau_0$.
+The main purpose of the equivalent width is that it can be used to measure the number of atoms in the reversing layer. From our profile plots we have illustrated that the intensity growth is only linear for $\tau_0 \ll 0$. In order to full growth of the line or the "curve of growth" we will plot $W_\lambda$ against log $\tau_0$. The result of this can be seen in figures \ref{fig:27} and \ref{fig:28}.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/growth.pdf}
+	\caption{Equivalent width $W_\lambda$ plotted for $\tau_0 \in [10^{-2}, 10^4]$. We see that the first part of the curve is linear 1:1. This is because we are in the $\tau_0 \ll 1$ regime, and from figure \ref{fig:18}, we knows that this is linear. This continues till we reach $\tau_0 = 1$, where the curve now becomes 1:2. This slope continues until we hit the $\tau_0 \gg 1$ regime. Here the curve slope increases again, but not as much as in the $\tau_0 \ll 1$ regime.}
+	\label{fig:27}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/growthmulti.pdf}
+	\caption{Similar equivalent width plot as in figure \ref{fig:28}, but now with varying values of the dampening parameter $a$. We see that change this parameter changes the behaviour of the the non $\tau_0 \ll 1$ regime. One can compare the curve of growth with the empirical curve of growth for the solar iron lines by tuning this parameter. By comparing the two curves we find that the solar iron lines has a dampening parameter roughly in between $a = 0.01$ and $a = 0.1$. }
+	\label{fig:28}
+\end{figure}
 
 \end{multicols}
 \end{document}
