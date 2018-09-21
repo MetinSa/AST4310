@@ -327,7 +327,7 @@ We notice that $B_\lambda$ increases with temperature at any wavelength but fast
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{SSA/figures/planck.pdf}
-	\caption{Planck's law for wavelengths $\lambda$ in the visible spectrum for [Å]. $B_\lambda$ increase with temperature at all wavelengths with the maximum intensity of each temperature occurring at the low ends of the wavelengths. We note that the maximas are slightly shifted towards lower wavelengths for higher temperatures. }
+	\caption{Planck's law for wavelengths $\lambda$ in the visible spectrum for [Å]. The colorbar denotes the temperature, $T$. $B_\lambda$ increase with temperature at all wavelengths with the maximum intensity of each temperature occurring at the low ends of the wavelengths. We note that the maximas are slightly shifted towards lower wavelengths for higher temperatures. }
 	\label{fig:12}
 \end{figure}
 
@@ -463,6 +463,21 @@ By combining the Schuster-Schwarzschild model seen in equation \eqref{eq:8} with
 	\label{fig:24}
 \end{figure}
 
+\begin{center}
+2.5\textit{ Equivalent width of spectral lines}
+\end{center}
+Minnaert together with his coworkers introduced the \textit{equivalent width} $W_\lambda$ as a line-strength parameter which measures the growth quantitatively. This quantity measures the integrated line depression in the normalized spectrum, and is given as
+\begin{equation}
+    W_\lambda = \int \frac{I_\text{cont} - I(\lambda)}{I_\text{cont}} d\lambda.
+\end{equation}
+Numerically, we compute this by summing $(I_\lambda - I(0))d\lambda/I_\lambda$, where $d\lambda$ is the steplength in the wavelength array. Doing will compute the equivalent width for the Schuster-Schwarzschild profile seen in figure $$
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/ss2.pdf}
+	\caption{Schuster-Schwarzschild line profile for $\lambda = 5000$.}
+	\label{fig:25}
+\end{figure}
 
 \end{multicols}
 \end{document}
