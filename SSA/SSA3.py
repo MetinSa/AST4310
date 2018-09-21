@@ -94,33 +94,31 @@ def plot_planck():
 
 	wav = np.linspace(1000,20800,1000)
 	B = np.zeros(len(wav))
-	dummy = 1
+
+	#defining colors
+	colormap = plt.cm.plasma
+	sm = plt.cm.ScalarMappable(cmap=colormap,norm=plt.Normalize(vmin=5000, vmax=8000))
+	sm._A = []
+	plt.colorbar(sm)
+	plt.gca().set_color_cycle([colormap(i) for i in np.linspace(0, 0.9, 15)])
+
 	for T in range(5000,8000,200):
 
-		B[:] = planck(T, wav[:]*1e-8)
+		B[:] = planck(T, wav[:]*1e-8)	
+		plt.plot(wav,B)
 
-		if dummy == 1:
-			plt.plot(wav,B,color = "royalblue", label = r"T $\in$ [5000,8000] K")
-			dummy += 1
-
-		else:
-			plt.plot(wav,B,color = "royalblue")
-
-
-
-	# plt.yscale('log')
-	# plt.xscale('log')
-	plt.title(r"Planck's Law ")
+	plt.yscale('log')
+	plt.xscale('log')
+	plt.title(r"Planck's Law (log-log), T $\in [5000, 8000]$ K",fontsize=11)
 	plt.xlabel(r'$\lambda$ [$\AA$]')
 	plt.ylabel(r"$B_\lambda$")
 	plt.xlim(0,20800)
-	plt.legend()
 	plt.grid(ls ="--")
-	# plt.savefig("planck.pdf")
+	plt.savefig("planckloglog.pdf")
 	plt.show()
 
 
-# plot_planck()
+plot_planck()
 
 
 def plot_planck_approx():
