@@ -63,7 +63,7 @@ def voigt(gamma,x):
 	return special.wofz(x+1j*gamma).real 
 
 
-def profile(a,tau0,u):
+def profile(a,tau0,u, wav):
 
 	"""
 	Spectral line profile.
@@ -71,7 +71,7 @@ def profile(a,tau0,u):
 	"""
 	Ts = 5700
 	Tl = 4200
-	wav = 2000e-8
+	# wav = 2000e-8
 	intensity = np.zeros(len(u))
 
 	for i in range(len(u)):
@@ -114,11 +114,11 @@ def plot_planck():
 	plt.ylabel(r"$B_\lambda$")
 	plt.xlim(0,20800)
 	plt.grid(ls ="--")
-	plt.savefig("planckloglog.pdf")
+	# plt.savefig("planckloglog.pdf")
 	plt.show()
 
 
-plot_planck()
+# plot_planck()
 
 
 def plot_planck_approx():
@@ -283,15 +283,14 @@ def plot_spectral_lines(mode):
 			if wave == 5000e-8:
 				plt.axhline(y =  (intensity.max())/np.exp(1), color = "gray", ls= "--")
 				plt.text(2.8, 1e14, "Optically thick transition")
-				print (intensity.max(),intensity.max()/np.exp(1))
 			# plt.savefig("ss"+str(savefileindex)+ ".pdf")
-			# plt.show()	
+			plt.show()	
 			savefileindex += 1
 			# print(intensity.max(), intensity[0])
 	
 # plot_spectral_lines("single")
 # plot_spectral_lines("multi")
-plot_spectral_lines("var_wave")
+# plot_spectral_lines("var_wave")
 
 
 
@@ -299,24 +298,38 @@ plot_spectral_lines("var_wave")
 
 def plot_profile():
 
-	u = np.linspace(-200,200,1000)
+	u, du = np.linspace(-200,200,1000,retstep = True)
+	print(du)
 	a = 0.1
 	tau0 = 1e2	
+	wav = 5000e-8
+	intensity = profile(a,tau0,u,wav)	
 
-	intensity = profile(a,tau0,u)	
-
-	plt.plot(u,intensity)
-	plt.show()	
+	# plt.plot(u,intensity)
+	# plt.grid(ls="--")
+	# plt.title(r"Line profile, $a = 0.1$, $\tau_0 = 100$")
+	# plt.xlabel("u")
+	# plt.ylabel(r"I$_\lambda$")
+	# plt.savefig("lprof.pdf")
+	# plt.show()	
 	
 
 	# relative
 	reldepth = (intensity[0]-intensity)/intensity[0]
-	plt.plot(u,reldepth)
-	plt.show()
-	eqw = sum(reldepth)*0.4
-	#print eqw
+	eqw = sum(reldepth)*du
+	# print(eqw)
 
-# plot_profile()
+	plt.plot(u,reldepth, label = "Equivalent width: %.2f" %eqw)
+	plt.grid(ls="--")
+	plt.title(r"Line profile, $a = 0.1$, $\tau_0 = 100$")
+	plt.xlabel("u")
+	plt.ylabel(r"Relative I$_\lambda$")
+	plt.legend()
+	plt.savefig("eqwidth.pdf")
+
+	plt.show()
+
+plot_profile()
 
 	
 
