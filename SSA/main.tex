@@ -467,17 +467,31 @@ By combining the Schuster-Schwarzschild model seen in equation \eqref{eq:8} with
 2.5\textit{ Equivalent width of spectral lines}
 \end{center}
 Minnaert together with his coworkers introduced the \textit{equivalent width} $W_\lambda$ as a line-strength parameter which measures the growth quantitatively. This quantity measures the integrated line depression in the normalized spectrum, and is given as
-\begin{equation}
+\begin{equation}\label{eq:11}
     W_\lambda = \int \frac{I_\text{cont} - I(\lambda)}{I_\text{cont}} d\lambda.
 \end{equation}
-Numerically, we compute this by summing $(I_\lambda - I(0))d\lambda/I_\lambda$, where $d\lambda$ is the steplength in the wavelength array. Doing will compute the equivalent width for the Schuster-Schwarzschild profile seen in figure $$
+Numerically, we compute this by summing $(I_\lambda - I(0))d\lambda/I_\lambda$, where $d\lambda$ is the steplength in the wavelength array. Doing will compute the equivalent width for the Schuster-Schwarzschild profile seen in figure \ref{fig:25}, we get the result seen in figure \ref{fig:26}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{SSA/figures/ss2.pdf}
-	\caption{Schuster-Schwarzschild line profile for $\lambda = 5000$.}
+	\includegraphics[width=0.5\textwidth]{SSA/figures/lprof.pdf}
+	\caption{Schuster-Schwarzschild line profile for $\lambda = 5000$. This is the same result as the $\tau_0 = 100$ seen in figure 23, with the only difference being the $u$ range on the x-axis which results in a thinner looking profile.}
 	\label{fig:25}
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{SSA/figures/eqwidth.pdf}
+	\caption{Relative intensity of line profile from figure \ref{fig:25}. This relative intensity only considers the difference in intensity from the continuum's intensity which results in an inverted figure. We have also normalized by dividing by $I\text{cont}$. The equivalent width is then computed using equation \eqref{eq:11}.}
+	\label{fig:26}
+\end{figure}
+
+\begin{center}
+2.6\textit{ Curve of growth}
+\end{center}
+The main purpose of the equivalent width is that it can be used to measure the number of atoms in the reversing layer. From our profile plots we have illustrated that the intensity growth is only linear for $\tau_0 \ll 0$. In order to full growth of the line or the "curve of growth" we will plot $W_\lambda$ against log $\tau_0$.
+
+
 
 \end{multicols}
 \end{document}
