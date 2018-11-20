@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import astropy.constants as const
 
-# Chaning plot text
+# Matplotlib estetics
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif', size= 15)
 
@@ -12,15 +12,14 @@ path = "../data/"
 savepath = "../figures/"
 filename = "falc.dat"
 
-# Reading file
+# Reading data
 h, tau5, colm, temp, vturb, nhyd, nprot, nel, ptot, pgasptot, dens = np.loadtxt(path + filename,usecols=(0,1,2,3,4,5,6,7,8,9,10), unpack=True)
 
 
 """
-Constants/Parameters
+Constants/Variables/Parameters
 
 """
-
 k_B = const.k_B.cgs.value
 m_e = const.m_e.cgs.value
 m_p = const.m_p.cgs.value
@@ -38,8 +37,6 @@ dens0 = dens[np.argwhere(h ==0)[0][0]]
 p_idealgas = (nhyd+nel)*k_B*temp
 p_idealgas_he = (nhyd+nel+n_He)*k_B*temp
 
-# pgas = ptot-dens*vturb**2/2
-# n_phot = 20*temp**3
 
 """
 Functions
@@ -52,8 +49,32 @@ def ScaleHeight(h, rho):
 	Returns the scale height for at a given height and density
 
 	"""
-
 	return -h / (np.log(rho/dens0))
+
+
+def N_Photon(height):
+
+	"""
+	Returns the photon density for a temperature at a height
+
+	"""
+	T = temp[np.argwhere(h == height)[0][0]]
+	return 20*T**3
+
+
+def Print_PhotonDensity():
+
+	"""
+	Prints information about the photon density
+	"""
+	#Atmosphere photon density
+	T_eff = 5770
+	N_photon_atmosphere = (20/2*np.pi)*T_eff**3
+
+	print ("Photon density at deepest model location: %g" % N_Photon(np.amax(h)))
+	print ("Hydrogen density at deepest model location: %g" % nhyd[np.argwhere(h == np.amax(h))[0][0]])
+	print ("Photon density at highest model location: %g" %N_photon_atmosphere)
+	print ("Hydrogen density at highest model location: %g" % nhyd[np.argwhere(h == np.amin(h))[0][0]])
 
 
 """
@@ -195,24 +216,33 @@ def gasPressure_Height():
 	plt.show()
 
 
+def HydrogenIonization_Height():
+
+	"""
+	Plotting the ionization fraction of hydrogen vs height
+
+	"""
+
+	plt.title("Ionization fraction of hydrogen vs height")
+	plt.semilogy(h, nprot/nhyd, color = "royalblue")
+	plt.grid(linestyle = "--")
+	plt.xlabel("Height [km]")
+	plt.ylabel("Hydrogen Ionization Fraction")
+	plt.savefig(savepath + "FALCIonizationFraction.pdf")
+	plt.show()
+
+
+
 """
 Activating plots
 
 """
+
 # Temperature_Height()
 # TotalPressure_ColumnMass()
 # ColumnMass_Height()
 # NumberDensity_Height()
 # gasDensity_Height()
-gasPressure_Height()
-
-
-
-
-
-
-# print ("Photon density at deepest model location: %g" % n_phot[np.argmin(h)])
-# print ("Hydrogen density at deepest model location: %g" % nhyd[np.argmin(h)])
-# print ("Photon density at highest model location: %g" % (20*5770**3/(2*np.pi)))
-# print ("Hydrogen density at highest model location: %g" % nhyd[np.argmax(h)])
-
+# gasPressure_Height()
+# HydrogenIonization_Height()
+# Print_PhotonDensity()
