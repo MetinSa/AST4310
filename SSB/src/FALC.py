@@ -42,7 +42,6 @@ p_idealgas_he = (nhyd+nel+n_He)*k_B*temp
 Functions
 
 """
-
 def ScaleHeight(h, rho):
 
 	"""
@@ -62,7 +61,16 @@ def N_Photon(height):
 	return 20*T**3
 
 
-def Print_PhotonDensity():
+def Estimate_C():
+
+	"""
+	Returns the constant C from P_tot =Cm
+
+	"""
+	return np.average(ptot/colm)
+
+
+def PrintInfo():
 
 	"""
 	Prints information about the photon density
@@ -70,6 +78,8 @@ def Print_PhotonDensity():
 	#Atmosphere photon density
 	T_eff = 5770
 	N_photon_atmosphere = (20/2*np.pi)*T_eff**3
+
+	print("C = %.3E" %Estimate_C())
 
 	print ("Photon density at deepest model location: %g" % N_Photon(np.amax(h)))
 	print ("Hydrogen density at deepest model location: %g" % nhyd[np.argwhere(h == np.amax(h))[0][0]])
@@ -81,7 +91,6 @@ def Print_PhotonDensity():
 Plotting Functions
 
 """
-
 def Temperature_Height():
 
 	"""
@@ -153,15 +162,17 @@ def NumberDensity_Height():
 
 	"""
 	plt.title("Comparing number densities in FALC")
-	plt.semilogy(h,nel-nprot, color = "black", alpha = 0.7, linestyle = "--", label = r"$N_\mathrm{e} - N_\mathrm{p}$")
-	plt.semilogy(h,nhyd, color = "royalblue", label = r"$N_\mathrm{H}$")
-	plt.semilogy(h,nel, color = "mediumseagreen", label = r"$N_\mathrm{e}$")
-	plt.semilogy(h,nprot, color = "crimson", label = r"$N_\mathrm{p}$")
+	plt.semilogy(h,nel-nprot, color = "black", alpha = 0.7, linestyle = "--", label = r"$n_\mathrm{e} - n_\mathrm{p}$")
+	plt.semilogy(h,nhyd, color = "royalblue", label = r"$n_\mathrm{H}$")
+	plt.semilogy(h,nhyd-nprot, color = "darkorange",linestyle = "--", label = r"$n_\mathrm{H} - n_\mathrm{p}$")
+	plt.semilogy(h,nel, color = "mediumseagreen", label = r"$n_\mathrm{e}$")
+	plt.semilogy(h,nprot, color = "crimson", label = r"$n_\mathrm{p}$")
 	plt.grid(linestyle = "--")
 	plt.legend()
 	plt.xlabel("Height [km]")
 	plt.ylabel("Number density [cm$^3$]")
-	plt.xlim(-100, 2000)
+	plt.xlim(-100, 2200)
+	plt.subplots_adjust(bottom = 0.12)
 	# plt.tight_layout()
 	plt.savefig(savepath + "FALCnumberDensity.pdf")
 	plt.show()
@@ -237,7 +248,6 @@ def HydrogenIonization_Height():
 Activating plots
 
 """
-
 # Temperature_Height()
 # TotalPressure_ColumnMass()
 # ColumnMass_Height()
@@ -245,4 +255,4 @@ Activating plots
 # gasDensity_Height()
 # gasPressure_Height()
 # HydrogenIonization_Height()
-Print_PhotonDensity()
+PrintInfo()

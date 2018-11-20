@@ -29,8 +29,6 @@ N_phot = 1.351e+17
 Functions
 
 """
-
-
 def ScaleHeight(h, logrho):
 
 	"""
@@ -63,7 +61,6 @@ def PrintInfo():
 Plotting functions
 
 """
-
 def Temperature_Height():
 
 	"""
@@ -165,7 +162,6 @@ def mu_Height():
 Activating functions
 
 """
-
 # Temperature_Height()
 # Pressure_Height()
 # GasDensity_Height()
