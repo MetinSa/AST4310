@@ -9,7 +9,7 @@ plt.rc('font', family='serif', size= 15)
 
 # System specifics
 path = "../data/"
-savepath = "../figures/"
+savepath = "../figures/1.2/"
 filename = "falc.dat"
 
 # Reading data
@@ -245,4 +245,4 @@ Activating plots
 # gasDensity_Height()
 # gasPressure_Height()
 # HydrogenIonization_Height()
-# Print_PhotonDensity()
+Print_PhotonDensity()
