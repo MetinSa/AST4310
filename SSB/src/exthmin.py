@@ -124,54 +124,20 @@ def Optical_Depth():
 	for i in range(1,len(tau)):
 		tau[i] = tau[i-1] + 0.5*(ext[i]+ext[i-1])*(h[i-1]-h[i])*1e5
 
-	plt.title(r"H$^{-}$ extinction for $\lambda$ = 5000 $\mathrm{\AA}$")
-	plt.semilogy(h,tau5, color = "royalblue", label = r"H$^{-}$")
-	plt.semilogy(h,tau, color = "crimson", label = r"H$^{-}$")
+	plt.semilogy(h,tau5, color = "royalblue", label = r"$\tau_{5000}$ from FALC")
+	plt.semilogy(h,tau, color = "crimson", label = r"$\tau_{5000}$ from H$^{-}$ and Thomson extinction")
 
 	plt.grid(linestyle = "--")
 	plt.legend()
 	plt.xlabel(r"Height [km]")
-	plt.ylabel(r"$\alpha_\lambda$ [cm$^{-1}$]")
+	plt.ylabel(r"Optical depth $\tau_\lambda$")
 	# plt.xlim(-200,2150)
 	# plt.ylim(1e-18,1e-5)
-	# plt.subplots_adjust(bottom = 0.12, left = 0.15)
-	# plt.savefig(savepath1 + "extinction_comparison.pdf")
-	plt.show()
-
-
-def Emergent_Intensity():
-	sigmaT= 6.648e-25
-
-	contfuncCalc=np.zeros(len(wav))
-	for j in range(len(wav)):
-		ext = np.zeros(len(tau5))
-		tau = np.zeros(len(tau5))
-		integrand = np.zeros(len(tau5))
-		contfunc = np.zeros(len(tau5))
-		intt = 0.0
-		hint = 0.0
-		for i in range(1, len(tau5)):
-			ext[i] = (exthmin(wav[j]*1e4, temp[i], nel[i])*(nhyd[i]-nprot[i])+ sigmaT*nel[i])
-			tau[i] = tau[i-1] + 0.5*(ext[i] + ext[i-1])*(h[i-1]-h[i])*1e5
-			integrand[i] = planck(temp[i],wav[j]*1e-4)*np.exp(-tau[i])
-			intt += 0.5*(integrand[i]+integrand[i-1])*(tau[i]-tau[i-1])
-			hint += h[i]*0.5*(integrand[i]+integrand[i-1])*(tau[i]-tau[i-1])
-			contfunc[i] = integrand[i]*ext[i]
-		contfuncCalc[j]=intt
-		# note : exthmin has wavelength in [Angstrom], planck in [cm]
-		mean = hint / intt
-		#tau5[69]=1
-	plt.plot(wav, contfuncCalc*1e-14)
-	plt.plot(wav,Icont)
-
-	plt.xlabel(r"wavelength $\lambda$  [$\mu$ m]")
-	plt.ylabel(r"Intensity [$10^{14} erg s^{-1} cm^{-2} ster^{-1} cm^{-1}$]")
-	plt.title('Observed and computed continuum intensity')
-	plt.legend([r'computed from FALC',r'observed (Allen 1978)'])
+	plt.subplots_adjust(bottom = 0.12, left = 0.15)
+	plt.savefig(savepath2 + "extinction_5000.pdf")
 	plt.show()
 
 
 # Extinction_H0()
 # Extinction_comparison()
-# Optical_Depth()
-Emergent_Intensity()
+Optical_Depth()
