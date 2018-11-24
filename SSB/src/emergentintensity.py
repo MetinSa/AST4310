@@ -24,9 +24,8 @@ wav, Fsmoothed, F, Ismoothed, I = np.loadtxt(path + filename2, usecols=(0,1,2,3,
 Constants/Variables/Parameters
 
 """
-
 c = const.c.cgs.value
-# h = const.h.cgs.value
+h_planck = const.h.cgs.value
 k_B = const.k_B.cgs.value
 wav_to_freq = (wav**2/(c))*1e6
 sigmaT= 6.648e-25
@@ -42,11 +41,16 @@ def Planck(wav, T):
 	Returns the planck curves for a given temperature and wavelength
 
 	"""
+	return (2*h_planck*c**2*wav**(-5))*(1./(np.exp(h_planck*c/(wav*k_B*T))-1.))
 
-	return (2*const.h.cgs.value*c**2*wav**(-5))*(1./(np.exp(const.h.cgs.value*c/(wav*k_B*T))-1.))
 
 def Emergent_Intensity():
-	contfuncCalc=np.zeros(len(wav))
+
+	"""
+	Computing the emergent intensity in addition to the mean height <h>
+
+	"""
+	Intensity=np.zeros(len(wav))
 	for j in range(len(wav)):
 		ext = np.zeros(len(tau5))
 		tau = np.zeros(len(tau5))
@@ -61,22 +65,24 @@ def Emergent_Intensity():
 			intt += 0.5*(integrand[ih]+integrand[ih-1])*(tau[ih]-tau[ih-1])
 			hint += h[ih]*0.5*(integrand[ih]+integrand[ih-1])*(tau[ih]-tau[ih-1])
 			contfunc[ih] = integrand[ih]*ext[ih]
-		contfuncCalc[j]=intt
+		Intensity[j]=intt
 		# note : exthmin has wavelength in [Angstrom], planck in [cm]
 		mean = hint / intt
 		#tau5[69]=1
-	return contfuncCalc, mean
+	return Intensity, mean
 
 
 def exthmin(wav,T,eldens):
-	# other parameters
-	c = const.c.cgs.value
-	h = const.h.cgs.value
-	k = const.k_B.cgs.value
-	# wav_to_freq = (wav**2/(c))*1e6
-	theta=5040./T
-	elpress=eldens*k*T
 
+	"""
+	Extinction function copied from the SSB paper
+
+	"""
+	# Parameters
+	theta=5040./T
+	elpress=eldens*k_B*T
+
+	# Info about the function:
 	# evaluate H-min bound-free per H-min ion ? Gray (8.11)
 	# his alpha = my sigma in NGSB/AFYC (per particle without stimulated)
 	sigmabf = (1.99654 -1.18267e-5*wav +2.64243e-6*wav**2-4.40524e-10*wav**3+3.23992e-14*wav**4-1.39568e-18*wav**5 +2.78701e-23*wav**6)
@@ -91,7 +97,7 @@ def exthmin(wav,T,eldens):
 	# units: cm2 per neutral H atom in whatever level (whole stage)
 	graysaha=4.158e-10*elpress*theta**2.5*10.**(0.754*theta)# Gray (8.12)
 	kappabf=sigmabf*graysaha # per neutral H atom
-	kappabf=kappabf*(1.-np.exp(-h*c/(wav*1e-8*k*T)))# correct stimulated
+	kappabf=kappabf*(1.-np.exp(-h_planck*c/(wav*1e-8*k_B*T)))# correct stimulated
 
 	# check Gray's Saha-Boltzmann with AFYC (edition 1999) p168
 	# logratio=-0.1761-np.log10(elpress)+np.log10(2.)+2.5*np.log10(T)-theta*0.754
@@ -110,21 +116,42 @@ def exthmin(wav,T,eldens):
 
 def Emergent_IntensityPlot():
 
-	contfuncCalc , mean = Emergent_Intensity()
+	"""
+	Plotting a comparison between observed and computed intensity
+
+	"""
+	I_comp , mean = Emergent_Intensity()
 
 	plt.title("Observed and computed continuum intensity")
-	plt.plot(wav, contfuncCalc*1e-14, color = "royalblue", label = "FALC")
+	plt.plot(wav, I_comp*1e-14, color = "royalblue", label = "FALC")
 	plt.plot(wav,I, color = "crimson", label = "Observed")
 	plt.legend()
 	plt.grid(linestyle = "--")
 	plt.xlabel(r"Wavelength $\lambda$ [$\mu$ m]")
-	plt.ylabel(r"Intensity [$10^{14}$ erg s$^{-1}$ cm$^{-2}$ ster$^{-1}$ cm$^{-1}$]")
+	plt.ylabel(r"Intensity [$10^{14}$ erg s$^{-1}$ cm$^{-2}$ ster$^{-1}$ $\mu$m$^{-1}$]")
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath3 + "Observed_computed.pdf")
+	# plt.savefig(savepath3 + "Observed_computed.pdf")
 	plt.show()
 
+	# Printing info regarding the comparison
+	i_lambda = np.argwhere(wav == 0.5)[0][0]
+	print ("FALC: ", I_comp[i_lambda]*1e-14)
+	print ("OBSERVED: ", I[i_lambda])
+	print ("DEVIATION: ", 100*(I_comp[i_lambda]*1e-14-I[i_lambda])/(I[i_lambda]))
+
+	# Pinting info for specific wavelengths
+	wl_list = [0.5, 1, 1.6, 5]
+	for wl in wl_list:
+		print(I_comp[(np.abs(wl-wav)).argmin()]*1e-14)
+
+
 def Contribution_single():
+
+	"""
+	Plotting the contribution function for lambda = 0.5 mu m with lazy reuse of code
+
+	"""
 	wl = 0.5
 	ext = np.zeros(np.size(tau5)) 
 	tau = np.zeros(np.size(tau5))
@@ -143,23 +170,29 @@ def Contribution_single():
 
 	plt.title("Peak-normalized contribution function")
 	plt.plot(h, contfunc/np.amax(contfunc),color = "royalblue")
-	plt.axvline(x=hmean, color = "black",linestyle = "--", alpha = 0.7, label = r"h$_\mathrm{mean} =$ %.1f"%hmean)
+	plt.axvline(x=hmean, color = "black",linestyle = "--", alpha = 0.7, label = r"$<h> = $%.1f km"%hmean)
 	plt.grid(linestyle = "--")
 	plt.xlabel("Height[km]")
 	plt.ylabel("Contribution function")
 	plt.xlim(-100,500)
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath3 + "contfunc_single.pdf")
+	# plt.savefig(savepath3 + "contfunc_single.pdf")
 	plt.show()
 
 
 
+
 def Contribution_multi():
+
+	"""
+	Plotting the contribution function for multiple wavelengths with lazy reuse of code
+
+	"""
 	colors = ["royalblue", "darkorange", "mediumseagreen", "crimson"]
 	idum = 0
 	wl_list = [0.5, 1, 1.6, 5]
-
+	y_list = [0.657,0.648,0.8  ,0.806]
 	for wl in wl_list:
 		ext = np.zeros(np.size(tau5)) 
 		tau = np.zeros(np.size(tau5))
@@ -176,7 +209,10 @@ def Contribution_multi():
 			contfunc[ih] = integrand[ih]*ext[ih]
 		hmean = hint / intt
 
-		plt.plot(h, contfunc/np.amax(contfunc), color = colors[idum], label = r"$\lambda$ = %g, h$_\mathrm{mean}$ = %.1f" %(wl,hmean))
+		i_hmean = (np.abs(h-hmean)).argmin()
+
+		plt.plot(h, contfunc/np.amax(contfunc), color = colors[idum], label = r"$\lambda$ = %g $\mu$m, $<h> = $%.1f km" %(wl,hmean))
+		plt.scatter(hmean, y_list[idum], color = colors[idum])
 		idum += 1
 
 	plt.title("Peak-normalized contribution function")
@@ -186,12 +222,15 @@ def Contribution_multi():
 	plt.xlim(-100,500)
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath3 + "contfunc.pdf")
+	# plt.savefig(savepath3 + "contfunc.pdf")
 	plt.show()
 
 
+"""
+Activating functions
 
+"""
 
 # Emergent_IntensityPlot()
-Contribution_single()
+# Contribution_single()
 # Contribution_multi()

@@ -24,7 +24,7 @@ Constants/Variables/Parameters
 """
 
 c = const.c.cgs.value
-# h = const.h.cgs.value
+h_planck = const.h.cgs.value
 k_B = const.k_B.cgs.value
 wav_to_freq = (wav**2/(c))*1e6
 sigmaT= 6.648e-25
@@ -40,13 +40,16 @@ def Planck(wav, T):
 	Returns the planck curves for a given temperature and wavelength
 
 	"""
-
-	return (2*const.h.cgs.value*c**2*wav**(-5))*(1./(np.exp(const.h.cgs.value*c/(wav*k_B*T))-1.))
+	return (2*h_planck*c**2*wav**(-5))*(1./(np.exp(h_planck*c/(wav*k_B*T))-1.))
 
 def Emergent_Intensity():
+
+	"""
+	Computing the intensity
+
+	"""
 	mu = np.linspace(0.1,1.,10)
 	contfuncMu = np.zeros((len(mu),len(wav)))
-	contfuncCalc=np.zeros(len(wav))
 	for j in range(len(wav)):
 		
 		for w in range(len(mu)):
@@ -69,12 +72,8 @@ def Emergent_Intensity():
 
 def exthmin(wav,T,eldens):
 	# other parameters
-	c = const.c.cgs.value
-	h = const.h.cgs.value
-	k = const.k_B.cgs.value
-	# wav_to_freq = (wav**2/(c))*1e6
 	theta=5040./T
-	elpress=eldens*k*T
+	elpress=eldens*k_B*T
 
 	# evaluate H-min bound-free per H-min ion ? Gray (8.11)
 	# his alpha = my sigma in NGSB/AFYC (per particle without stimulated)
@@ -90,7 +89,7 @@ def exthmin(wav,T,eldens):
 	# units: cm2 per neutral H atom in whatever level (whole stage)
 	graysaha=4.158e-10*elpress*theta**2.5*10.**(0.754*theta)# Gray (8.12)
 	kappabf=sigmabf*graysaha # per neutral H atom
-	kappabf=kappabf*(1.-np.exp(-h*c/(wav*1e-8*k*T)))# correct stimulated
+	kappabf=kappabf*(1.-np.exp(-h_planck*c/(wav*1e-8*k_B*T)))# correct stimulated
 
 	# check Gray's Saha-Boltzmann with AFYC (edition 1999) p168
 	# logratio=-0.1761-np.log10(elpress)+np.log10(2.)+2.5*np.log10(T)-theta*0.754
@@ -108,8 +107,11 @@ def exthmin(wav,T,eldens):
 
 def limb():
 
-	contfuncMu, mu = Emergent_Intensity()
+	"""
+	Plotting the limb darkening
 
+	"""
+	contfuncMu, mu = Emergent_Intensity()
 
 	plt.title("Limb darkening")
 	for i in range(len(mu)):
@@ -120,11 +122,16 @@ def limb():
 	plt.ylabel(r"Intensity [erg s$^{-1}$ cm$^{-2}$ ster$^{-1}$ cm$^{-1}$]")
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath + "limbdark_wave.pdf")
+	# plt.savefig(savepath + "limbdark_wave.pdf")
 	plt.show()
+
 
 def limbangle():
 
+	"""
+	Plotting the limb darkening for varying angles mu
+
+	"""
 	contfuncMu, mu = Emergent_Intensity()
 
 	ratio1 = np.zeros(len(mu))
@@ -154,11 +161,16 @@ def limbangle():
 	plt.ylabel(r"Normalized intensity")
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath + "limbdark_rRsun.pdf")
+	# plt.savefig(savepath + "limbdark_rRsun.pdf")
 	plt.show()
+
 
 def flux():
 
+	"""
+	Plotting the flux comparison
+
+	"""
 	xgauss=[-0.7745966692,0.0000000000,0.7745966692]
 	wgauss=[ 0.5555555555,0.8888888888,0.5555555555]
 	fluxspec = np.zeros(len(wav),dtype=float)
@@ -192,7 +204,7 @@ def flux():
 	plt.ylabel(r"Astrophysical flux [$10^{14}$ erg s$^{-1}$ cm$^{-2}$ ster$^{-1}$ cm$^{-1}$]")
 	plt.legend()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath + "flux_comparison.pdf")
+	# plt.savefig(savepath + "flux_comparison.pdf")
 	plt.show()
 
 

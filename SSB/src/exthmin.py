@@ -23,16 +23,22 @@ wav, Fsmoothed, F, Ismoothed, I = np.loadtxt(path + filename2, usecols=(0,1,2,3,
 Constants/Variables/Parameters
 
 """
+c = const.c.cgs.value
+h_planck = const.h.cgs.value
+k_B = const.k_B.cgs.value
+wav_to_freq = (wav**2/(c))*1e6
+sigmaT= 6.648e-25
 
-def exthmin(wav,temp,eldens):
-	# other parameters
-	c = const.c.cgs.value
-	h = const.h.cgs.value
-	k = const.k_B.cgs.value
-	# wav_to_freq = (wav**2/(c))*1e6
-	theta=5040./temp
-	elpress=eldens*k*temp
+def exthmin(wav,T,eldens):
+	"""
+	Extinction function copied from the SSB paper
 
+	"""
+	# Parameters
+	theta=5040./T
+	elpress=eldens*k_B*T
+
+	# Info about the function:
 	# evaluate H-min bound-free per H-min ion ? Gray (8.11)
 	# his alpha = my sigma in NGSB/AFYC (per particle without stimulated)
 	sigmabf = (1.99654 -1.18267e-5*wav +2.64243e-6*wav**2-4.40524e-10*wav**3+3.23992e-14*wav**4-1.39568e-18*wav**5 +2.78701e-23*wav**6)
@@ -47,10 +53,10 @@ def exthmin(wav,temp,eldens):
 	# units: cm2 per neutral H atom in whatever level (whole stage)
 	graysaha=4.158e-10*elpress*theta**2.5*10.**(0.754*theta)# Gray (8.12)
 	kappabf=sigmabf*graysaha # per neutral H atom
-	kappabf=kappabf*(1.-np.exp(-h*c/(wav*1e-8*k*temp)))# correct stimulated
+	kappabf=kappabf*(1.-np.exp(-h_planck*c/(wav*1e-8*k_B*T)))# correct stimulated
 
 	# check Gray's Saha-Boltzmann with AFYC (edition 1999) p168
-	# logratio=-0.1761-np.log10(elpress)+np.log10(2.)+2.5*np.log10(temp)-theta*0.754
+	# logratio=-0.1761-np.log10(elpress)+np.log10(2.)+2.5*np.log10(T)-theta*0.754
 	# print 'Hmin/H ratio=',1/(10.**logratio) # OK, same as Gray factor SB
 
 	# evaluate H-min free-free including stimulated emission = Gray p136
@@ -64,6 +70,11 @@ def exthmin(wav,temp,eldens):
 
 
 def Extinction_H0():
+
+	"""
+	Plotting the extinction at the solar surface
+
+	"""
 	T = temp[np.argwhere(h ==0)[0][0]]
 	n_el = nel[np.argwhere(h ==0)[0][0]]
 	wavelength = np.linspace(wav[0],2,80)*1e4
@@ -88,8 +99,13 @@ def Extinction_H0():
 	plt.savefig(savepath1 + "extinction_transmittance.pdf")
 	plt.show()
 
+
 def Extinction_comparison():
 
+	"""
+	Plotting the comparison of extinction profiles
+
+	"""
 	sigmaT= 6.648e-25
 	nneutH=nhyd-nprot
 	wavelength = 0.5*1e4
@@ -114,6 +130,10 @@ def Extinction_comparison():
 
 def Optical_Depth():
 
+	"""
+	Plotting the optical depth as a function of height
+
+	"""
 	tau = np.zeros(len(tau5), dtype=float) # initializing tau array 
 	nneutH=nhyd-nprot
 	sigmaT= 6.648e-25
@@ -138,6 +158,31 @@ def Optical_Depth():
 	plt.show()
 
 
+def PrintInfo():
+
+	"""
+	Printing height for tau = 1 for a set of wavelengths
+
+	"""
+	tau = np.zeros(len(tau5), dtype=float) # initializing tau array 
+	nneutH=nhyd-nprot
+	sigmaT= 6.648e-25
+	wl_list = [0.5, 1, 1.6, 5]
+	Thomson = nel*sigmaT
+	for wl in wl_list:
+		EXmin = exthmin(wl*1e4,temp,nel)*nneutH
+		ext = EXmin+Thomson
+
+		for i in range(1,len(tau)):
+			tau[i] = tau[i-1] + 0.5*(ext[i]+ext[i-1])*(h[i-1]-h[i])*1e5
+
+		index = (np.abs(1-tau)).argmin()
+		# print(index)
+
+		H_tau1 = h[index]
+		print(H_tau1)
+
 # Extinction_H0()
 # Extinction_comparison()
-Optical_Depth()
+# Optical_Depth()
+# PrintInfo()

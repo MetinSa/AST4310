@@ -81,10 +81,11 @@ def PrintInfo():
 
 	print("C = %.3E" %Estimate_C())
 
-	print ("Photon density at deepest model location: %g" % N_Photon(np.amax(h)))
-	print ("Hydrogen density at deepest model location: %g" % nhyd[np.argwhere(h == np.amax(h))[0][0]])
-	print ("Photon density at highest model location: %g" %N_photon_atmosphere)
-	print ("Hydrogen density at highest model location: %g" % nhyd[np.argwhere(h == np.amin(h))[0][0]])
+	print ("Photon density at deepest model location: %g" % N_Photon(np.amin(h)))
+	print ("Hydrogen density at deepest model location: %g" % nhyd[np.argwhere(h == np.amin(h))[0][0]])
+	print ("Photon density at highest model location: %g" %N_Photon(np.amax(h)))
+	print ("Photon density at highest model location (analytic): %g" %N_photon_atmosphere)
+	print ("Hydrogen density at highest model location: %g" % nhyd[np.argwhere(h == np.amax(h))[0][0]])
 
 
 """
@@ -115,6 +116,7 @@ def TotalPressure_ColumnMass():
 	Plotting pressure vs column mass both linearely and logarithmically
 
 	"""
+	plt.figure(figsize = (7,6))
 	plt.subplot(2,1,1)
 	plt.title("Total pressure vs column mass")
 	plt.plot(colm,ptot, color = "royalblue")
@@ -128,7 +130,7 @@ def TotalPressure_ColumnMass():
 	plt.xlabel("Column mass [g / cm$^2$]")
 	plt.ylabel(r"$P_\mathrm{tot}$ [dyn / cm$^2$]")
 	plt.tight_layout()
-	plt.savefig(savepath + "FALCpressure.pdf")
+	plt.savefig(savepath + "FALCpressurelarge.pdf")
 	plt.show()
 
 
@@ -138,6 +140,7 @@ def ColumnMass_Height():
 	Plotting pressure vs column mass both linearely and logarithmically
 
 	"""
+	plt.figure(figsize = (7,6))
 	plt.subplot(2,1,1)
 	plt.title("Column mass vs height")
 	plt.plot(h,colm, color = "royalblue")
@@ -151,7 +154,7 @@ def ColumnMass_Height():
 	plt.xlabel("Height [km]")
 	# plt.tight_layout()
 	plt.subplots_adjust(bottom = 0.12)
-	plt.savefig(savepath + "FALCcolumnmass_height.pdf")
+	plt.savefig(savepath + "FALCcolumnmass_heightlarge.pdf")
 	plt.show()
 
 
@@ -212,7 +215,6 @@ def gasPressure_Height():
 	plt.ylabel("Pressure [dyne cm$^{-2}$]")
 	plt.legend()
 	plt.savefig(savepath + "FALCgasPressure.pdf")
-	# plt.show()
 
 	plt.figure()
 	plt.title("Deviations in gas pressure")
@@ -255,4 +257,4 @@ Activating plots
 # gasDensity_Height()
 # gasPressure_Height()
 # HydrogenIonization_Height()
-PrintInfo()
+# PrintInfo()

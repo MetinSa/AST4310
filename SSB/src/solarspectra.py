@@ -73,6 +73,7 @@ def SpectralDistributions_Wav():
 	plt.savefig(savepath + "solarcontinuum.pdf")
 	plt.show()
 
+	# Print statement
 	print("max(Ic) = ",np.amax(I),"at",wav[np.argwhere(I == np.max(I))][0][0])
 
 
@@ -96,6 +97,7 @@ def SpectralDistributions_Freq():
 	plt.savefig(savepath + "solarcontinuum_freq.pdf")
 	plt.show()
 
+	# Print statement
 	print("max(Ic) = ",np.amax(I*wav_to_freq),"at",wav[np.argwhere(I*wav_to_freq == np.max(I*wav_to_freq))][0][0])
 
 
@@ -105,11 +107,12 @@ def PlanckPlot():
 	Plotting the planck fit
 
 	"""
-	T_test = 6300
+	# A better temperature for the Planck fit
+	T_fit = 6300
 
 	plt.title("Planck fit to observed continuum")
 	plt.plot(wav,I, color = "royalblue", label = r"$I_\nu^\mathrm{cont}$")
-	plt.plot(wav,Planck(wav/1e4,T_test)*1e-14, color = "mediumseagreen", label = r"$B_\lambda(T =$ %g)" %T2)
+	plt.plot(wav,Planck(wav/1e4,T_fit)*1e-14, color = "mediumseagreen", label = r"$B_\lambda(T =$ %g)" %T2)
 	plt.plot(wav,Planck(wav/1e4,T1)*1e-14, color = "crimson", label = r"$B_\lambda(T =$ %g)" %T1)
 	plt.grid(linestyle = "--")
 	plt.legend()
@@ -135,12 +138,30 @@ def BrightnessTempPlot():
 	plt.savefig(savepath + "solarcontinuum_brighttemp.pdf")
 	plt.show()
 
+	# Printing brightness temperature for a set of wavelengths
+	wl_list = [0.5, 1, 1.6, 5]
+	for wl in wl_list:
+		print(B_temp[(np.abs(wl-wav)).argmin()])
+
+
+def PlanckPrint():
+
+	"""
+	Printing the Planck intensity for a set of wavelengths
+
+	"""
+	wl_list = [0.5, 1, 1.6, 5]
+	temps = [6520,6340,6980,5790]
+	for i in range(len(wl_list)):
+		print(Planck(wl_list[i]/1e4,temps[i])/1e14)
+
 
 """
 Activating functions
 
 """
+# PlanckPrint()
 # SpectralDistributions_Wav()
 # SpectralDistributions_Freq()
 # PlanckPlot()
-BrightnessTempPlot()
+# BrightnessTempPlot()
